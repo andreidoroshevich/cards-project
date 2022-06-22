@@ -1,0 +1,28 @@
+.Navbar {
+    min-height: 100%;
+    width: 100vw;
+    height: 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    font-size: calc(10px + 2vmin);
+    background-color: lightgrey;
+
+}
+
+.item a {
+    color: grey;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.item a:hover {
+    color: blue;
+}
+
+.item a.active {
+    color: blue;
+    font-size: 18px;
+}
+

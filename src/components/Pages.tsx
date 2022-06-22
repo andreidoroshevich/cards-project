@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import TestPage from "./pages/TestPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 
 export const PATH = {
@@ -23,6 +24,7 @@ const Pages = () => {
         <div>
             <Routes>
                 <Route path={'/'} element={<Navigate to={PATH.LOGIN_PAGE}/>}/>
+                <Route path={PATH.FORGOT_PASSWORD_PAGE} element={<ForgotPasswordPage/>}/>
                 <Route path={PATH.LOGIN_PAGE} element={<LoginPage/>}/>
                 <Route path={PATH.NEW_PASSWORD_PAGE} element={<NewPasswordPage/>}/>
                 <Route path={PATH.PROFILE_PAGE} element={<ProfilePage/>}/>
