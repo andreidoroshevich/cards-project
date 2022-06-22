@@ -10,13 +10,13 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 
 export const PATH = {
-    FORGOT_PASSWORD_PAGE: '/ForgotPasswordPage',
-    ERROR_404_PAGE: '/Error404Page',
-    LOGIN_PAGE: '/LoginPage',
-    NEW_PASSWORD_PAGE: '/NewPasswordPage',
-    PROFILE_PAGE: '/ProfilePage',
-    REGISTER_PAGE: '/RegisterPage',
-    TEST_PAGE: '/TestPage',
+    FORGOT_PASSWORD_PAGE: '/forgot-password-page',
+    ERROR_404_PAGE: '/error-404-page',
+    LOGIN_PAGE: '/login-page',
+    NEW_PASSWORD_PAGE: '/new-password-page',
+    PROFILE_PAGE: '/profile-page',
+    REGISTER_PAGE: '/register-page',
+    TEST_PAGE: '/test-Page',
 }
 
 const Pages = () => {

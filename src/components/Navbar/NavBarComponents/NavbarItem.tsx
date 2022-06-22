@@ -4,11 +4,12 @@ import {NavLink} from "react-router-dom";
 
 type NavbarItemPropsType = {
     item: string
+    title: string
 }
 
 const NavbarItem = (props: NavbarItemPropsType) => {
     return (
-        <div className={classes.item}><NavLink to={`/${props.item}`}>{props.item}</NavLink></div>
+        <div className={classes.item}><NavLink to={`/${props.item}`}>{props.title}</NavLink></div>
 
     );
 };
