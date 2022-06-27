@@ -1,11 +1,12 @@
 import React from 'react';
 import Navbar from "../Navbar/Navbar";
+import style from './ForgotPasswordPage.module.css'
 
 const ForgotPasswordPage = () => {
     return (
-        <div>
+        <div className={style.background}>
             <Navbar/>
-            ForgotPasswordPage
+            ForgotPassword
         </div>
     );
 };
