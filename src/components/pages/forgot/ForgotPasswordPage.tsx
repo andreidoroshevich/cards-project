@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../../Navbar/Navbar";
 import style from './ForgotPasswordPage.module.css'
 import TextField from "@mui/material/TextField";
 import {useDispatch} from "react-redux";
@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import {Box, Link} from "@mui/material";
 
 const ForgotPasswordPage = () => {
+
 	const formik = useFormik({
 		initialValues: {
 			email: '',
@@ -27,12 +28,6 @@ const ForgotPasswordPage = () => {
 	})
 	const dispatch = useDispatch()
 
-	// const checkEmail = {checkEmail: false}
-	// if (checkEmail.checkEmail) {
-	// 	return <Navigate to={'/check-email'}/>
-	// }
-
-
 	return (
 		<>
 			<Grid container>
@@ -44,7 +39,8 @@ const ForgotPasswordPage = () => {
 								<FormControl>
 									<FormGroup>
 										<h4 className={style.title}>Forgot your password?</h4>
-										<TextField label="Email" margin="none" size={'small'}
+										<TextField className={style.input}
+										           label="Email" margin="none" size={'small'}
 										           {...formik.getFieldProps('email')}/>
 										{formik.errors.email ?
 											<div className={style.error}>{formik.errors.email}</div> : <br/>}
@@ -68,8 +64,6 @@ const ForgotPasswordPage = () => {
 				</div>
 			</Grid>
 		</>
-
-
 	);
 };
 

@@ -1,13 +1,10 @@
-.Navbar {
+.navbar {
     min-height: 100%;
     width: 100vw;
     height: 40px;
     display: flex;
-    align-items: flex-start;
-    justify-content: left;
     font-size: calc(10px + 2vmin);
     background-color: lightgrey;
-
 }
 
 .item a {
@@ -19,10 +16,21 @@
 
 .item a:hover {
     color: blue;
+
 }
 
-.item a.active {
-    color: blue;
-    font-size: 18px;
+.loginBlock {
+    width: 10%;
+    display: flex;
+    justify-content: right;
+    font-size: calc(10px + 2vmin);
+    margin-right: 20px;
+
 }
 
+.menu {
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+}
