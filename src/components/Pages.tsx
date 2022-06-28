@@ -17,7 +17,7 @@ export const PATH = {
 	PROFILE_PAGE: '/',
 	REGISTER_PAGE: '/register-page',
 	TEST_PAGE: '/test-Page',
-	CHECK_EMAIL: '/check-email'
+	CHECK_EMAIL: '/check-email/:email'
 }
 
 const Pages = () => {

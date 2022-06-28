@@ -26,4 +26,13 @@
     padding-top: 30px;
     font-size: 16px;
 opacity:0.9;
+
+}
+
+.email{
+    padding-bottom: 30px;
+    padding-top: 10px;
+    font-size: 16px;
+    opacity:0.9;
+    font-weight: bold;
 }

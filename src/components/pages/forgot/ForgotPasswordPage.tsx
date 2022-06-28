@@ -9,9 +9,13 @@ import style from './ForgotPasswordPage.module.css'
 import TextField from "@mui/material/TextField";
 import {useDispatch} from "react-redux";
 import Paper from '@mui/material/Paper';
-import {Box, Link} from "@mui/material";
+import {Box} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
 
 const ForgotPasswordPage = () => {
+
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	const formik = useFormik({
 		initialValues: {
@@ -23,10 +27,10 @@ const ForgotPasswordPage = () => {
 			}
 		},
 		onSubmit: values => {
+			navigate(`/check-email/${values.email}`)
 			// dispatch(loginTC(values));
 		},
 	})
-	const dispatch = useDispatch()
 
 	return (
 		<>
@@ -53,7 +57,7 @@ const ForgotPasswordPage = () => {
 										<div className={style.question}>
 											Did you remember your password?
 										</div>
-										<Link className={style.linkTryLoggingIn} href="/login-page">
+										<Link className={style.linkTryLoggingIn} to={'/login-page'} >
 											Try logging in
 										</Link>
 									</FormGroup>
@@ -68,3 +72,4 @@ const ForgotPasswordPage = () => {
 };
 
 export default ForgotPasswordPage;
+

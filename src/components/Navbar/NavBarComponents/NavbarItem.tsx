@@ -9,7 +9,8 @@ type NavbarItemPropsType = {
 
 const NavbarItem = (props: NavbarItemPropsType) => {
     return (
-        <div className={classes.item}><NavLink to={`/${props.item}`}>{props.title}</NavLink></div>
+        <div className={classes.item}><NavLink style={({ isActive }) => {
+	        return {color: isActive ? "red" : "",}}} to={`/${props.item}`}>{props.title}</NavLink></div>
 
     );
 };
