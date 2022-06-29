@@ -27,7 +27,7 @@ export const ForgotPasswordPage = () => {
             return validateFormErrors(values)
         },
         onSubmit: values => {
-            dispatch(recoveryPassTC(values))
+            // dispatch(recoveryPassTC(values))
             console.log(values)
             formik.resetForm()
         },
