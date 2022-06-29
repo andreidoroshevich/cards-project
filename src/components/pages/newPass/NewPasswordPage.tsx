@@ -83,8 +83,6 @@ export const NewPasswordPage = () => {
     };
 
 
-
-
     if (isPassChanged) {
         return <Navigate to={PATH.LOGIN_PAGE}/>
     }
@@ -100,77 +98,80 @@ export const NewPasswordPage = () => {
                             <div className={style.formTitle}>Create New Password</div>
                             <form onSubmit={formik.handleSubmit}>
 
-                                    <div className={style.field}>
+                                <div className={style.field}>
 
-                                        <FormGroup>
-                                            <FormControl  variant="standard">
-                                                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                                                <Input
-                                                    id="password"
-                                                    type={valuesPassword.showPassword ? 'password' : 'text'}
-                                                    name="password"
-                                                    placeholder={'Password'}
-                                                    onBlur={(e) => formik.setFieldTouched('password', true) }
-                                                    onChange={(e) => formik.setFieldValue('password', e.currentTarget.value)}
-                                                    value={formik.values.password}
-                                                    autoComplete="on"
-                                                    error={formik.touched.password && Boolean(formik.errors.password)}
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={handleClickShowPassword}
-                                                                onMouseDown={handleMouseDownPassword}>
-                                                                {valuesPassword.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    }
-                                                />
-                                            </FormControl>
-                                            {formik.errors.password && formik.touched.password &&
-                                                <div style={{color: 'red'}}>{formik.errors.password}</div>}
+                                    <FormGroup>
+                                        <FormControl variant="standard">
+                                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                            <Input
+                                                id="password"
+                                                type={valuesPassword.showPassword ? 'password' : 'text'}
+                                                name="password"
+                                                placeholder={'Password'}
+                                                onBlur={() => formik.setFieldTouched('password', true)}
+                                                onChange={formik.handleChange}
+                                                value={formik.values.password}
+                                                autoComplete="on"
+                                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}>
+                                                            {valuesPassword.showPassword ? <VisibilityOff/> :
+                                                                <Visibility/>}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
+                                            />
+                                        </FormControl>
+                                        {formik.errors.password && formik.touched.password &&
+                                            <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
-                                            <FormControl variant="standard">
-                                                <InputLabel htmlFor="standard-adornment-password">Confirm Password</InputLabel>
-                                                <Input
-                                                    id="confirmPassword"
-                                                    type={valuesConfirmPassword.showConfirmPassword ? 'password' : 'text'}
-                                                    name="password"
-                                                    placeholder={'Confirm Password'}
-                                                    onBlur={(e) => formik.setFieldTouched('confirmPassword', true) }
-                                                    onChange={(e) => formik.setFieldValue('confirmPassword', e.currentTarget.value)}
-                                                    value={formik.values.confirmPassword}
-                                                                                                        autoComplete="on"
-                                                    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={handleClickShowConfirmPassword}
-                                                                onMouseDown={handleMouseDownConfirmPassword}>
-                                                                {valuesConfirmPassword.showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    }
-                                                />
-                                            </FormControl>
-                                            {formik.errors.confirmPassword && formik.touched.confirmPassword &&
-                                                <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div>}
+                                        <FormControl variant="standard">
+                                            <InputLabel htmlFor="standard-adornment-password">Confirm
+                                                Password</InputLabel>
+                                            <Input
+                                                id="confirmPassword"
+                                                type={valuesConfirmPassword.showConfirmPassword ? 'password' : 'text'}
+                                                name="password"
+                                                placeholder={'Confirm Password'}
+                                                onBlur={() => formik.setFieldTouched('confirmPassword', true)}
+                                                onChange={formik.handleChange}
+                                                value={formik.values.confirmPassword}
+                                                autoComplete="on"
+                                                error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowConfirmPassword}
+                                                            onMouseDown={handleMouseDownConfirmPassword}>
+                                                            {valuesConfirmPassword.showConfirmPassword ?
+                                                                <VisibilityOff/> : <Visibility/>}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
+                                            />
+                                        </FormControl>
+                                        {formik.errors.confirmPassword && formik.touched.confirmPassword &&
+                                            <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div>}
 
-                                            <Button type={'submit'} variant={'contained'}
-                                                    color={'primary'}
-                                                    disabled={
-                                                        !!((!formik.values.password && !formik.values.confirmPassword)
-                                                            || (formik.errors.password || formik.errors.confirmPassword))}
-                                                        >
-                                                CREATE NEW PASSWORD
-                                            </Button>
-                                            <div className={style.signUpText}>Don't have an account</div>
-                                            <div className={style.signUpLinkText}>
-                                                <Link to={'/register-page'}>Sign Up</Link>
-                                            </div>
-                                        </FormGroup>
-                                    </div>
+                                        <Button type={'submit'} variant={'contained'}
+                                                color={'primary'}
+                                                disabled={
+                                                    !!((!formik.values.password && !formik.values.confirmPassword)
+                                                        || (formik.errors.password || formik.errors.confirmPassword))}
+                                        >
+                                            CREATE NEW PASSWORD
+                                        </Button>
+                                        <div className={style.signUpText}>Don't have an account</div>
+                                        <div className={style.signUpLinkText}>
+                                            <Link to={'/register-page'}>Sign Up</Link>
+                                        </div>
+                                    </FormGroup>
+                                </div>
                             </form>
                         </div>
                         <ErrorSnackbar/>

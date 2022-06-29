@@ -108,7 +108,7 @@ export const LoginPage = () => {
                                                 type={valuesPassword.showPassword ? 'password' : 'text'}
                                                 name="password"
                                                 placeholder={'Password'}
-                                                onBlur={(e) => formik.setFieldTouched('password', true) }
+                                                onBlur={() => formik.setFieldTouched('password', true) }
                                                 onChange={formik.handleChange}
                                                 value={formik.values.password}
                                                 autoComplete="on"
