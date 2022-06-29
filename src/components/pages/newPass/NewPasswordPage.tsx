@@ -157,10 +157,6 @@ export const NewPasswordPage = () => {
                                             {formik.errors.confirmPassword && formik.touched.confirmPassword &&
                                                 <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div>}
 
-                                            <div className={style.forgotPassword}>
-                                                <Link to={'/forgot-password-page'}>Forgot Password?</Link>
-
-                                            </div>
                                             <Button type={'submit'} variant={'contained'}
                                                     color={'primary'}
                                                     disabled={
