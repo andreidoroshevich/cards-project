@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField} from "@material-ui/core";
+import {Button, Checkbox, FormControlLabel, FormGroup, Grid, TextField} from "@material-ui/core";
 import {useFormik} from 'formik';
 import {loginTC} from "../../../reducers/loginReducer";
 import {Link, Navigate} from "react-router-dom";
@@ -9,6 +9,13 @@ import style from '../../common/styles/FormStyles.module.css'
 import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
 import LinearProgress from "@mui/material/LinearProgress";
 import {validateFormErrors} from "../../../utils/error-utils";
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment'
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 export type FormikErrorType = {
@@ -16,6 +23,11 @@ export type FormikErrorType = {
     password?: string
     confirmPassword?: string
     rememberMe?: boolean
+}
+
+type StatePassword = {
+    password: string;
+    showPassword: boolean;
 }
 
 export const LoginPage = () => {
@@ -39,9 +51,29 @@ export const LoginPage = () => {
         },
     })
 
+    const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
+        password: '',
+        showPassword: false,
+    });
+
+
+    const handleClickShowPassword = () => {
+        setValuesPassword({
+            ...valuesPassword,
+            showPassword: !valuesPassword.showPassword,
+        });
+    };
+
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
+
     if (isLoggedIn) {
         return <Navigate to={PATH.PROFILE_PAGE}/>
     }
+
 
     return (
         <div className={style.mainContainer}>
@@ -54,28 +86,50 @@ export const LoginPage = () => {
                             <div className={style.formTitle}>Sign In</div>
                             <form onSubmit={formik.handleSubmit}>
 
-                                <FormControl>
+
                                     <div className={style.field}>
 
                                     <FormGroup>
+                                        <FormControl>
                                         <TextField
                                             label="Email"
                                             margin="normal"
                                             {...formik.getFieldProps('email')}
                                         />
+                                        </FormControl>
                                         {formik.touched.email
                                             && formik.errors.email
                                             && <div style={{color: 'red'}}>{formik.errors.email}</div>}
 
-                                            <TextField type="password"
-                                                       label="Password"
-                                                       margin="normal"
-                                                       {...formik.getFieldProps('password')}
+                                        <FormControl variant="standard">
+                                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                            <Input
+                                                id="password"
+                                                type={valuesPassword.showPassword ? 'text' : 'password'}
+                                                name="password"
+                                                placeholder={'Password'}
+                                                onBlur={(e) => formik.setFieldTouched('password', true) }
+                                                onChange={formik.handleChange}
+                                                value={formik.values.password}
+                                                autoComplete="on"
+                                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}>
+                                                            {valuesPassword.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
                                             />
+                                        </FormControl>
+                                        {formik.errors.password && formik.touched.password &&
+                                            <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
-                                            {formik.touched.password
-                                            && formik.errors.password
-                                            && <div style={{color: 'red'}}>{formik.errors.password}</div>}
+
+
                                         <FormControlLabel label={'Remember me'} control={<Checkbox
                                             checked={formik.values.rememberMe}
                                             {...formik.getFieldProps('rememberMe')}
@@ -100,7 +154,7 @@ export const LoginPage = () => {
                                     </FormGroup>
                                     </div>
 
-                                </FormControl>
+
                             </form>
                         </div>
                         <ErrorSnackbar/>
