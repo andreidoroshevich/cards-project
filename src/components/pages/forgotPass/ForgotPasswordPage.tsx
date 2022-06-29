@@ -16,8 +16,7 @@ export const ForgotPasswordPage = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.profile.status)
     const info = useAppSelector(state => state.forgot.info)
-    const message = useAppSelector(state => state.forgot.message)
-    console.log(message)
+
 
     const formik = useFormik({
         initialValues: {

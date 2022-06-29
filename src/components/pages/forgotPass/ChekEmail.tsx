@@ -5,8 +5,8 @@ import style from '../../common/styles/FormStyles.module.css'
 
 export const CheckEmail = () => {
 
-
     return (
+
         <div className={style.mainContainer}>
 
             <Grid container>
