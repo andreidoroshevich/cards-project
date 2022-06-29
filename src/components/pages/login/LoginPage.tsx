@@ -53,7 +53,7 @@ export const LoginPage = () => {
 
     const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
         password: '',
-        showPassword: false,
+        showPassword: true,
     });
 
 
@@ -105,7 +105,7 @@ export const LoginPage = () => {
                                             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                                             <Input
                                                 id="password"
-                                                type={valuesPassword.showPassword ? 'text' : 'password'}
+                                                type={valuesPassword.showPassword ? 'password' : 'text'}
                                                 name="password"
                                                 placeholder={'Password'}
                                                 onBlur={(e) => formik.setFieldTouched('password', true) }

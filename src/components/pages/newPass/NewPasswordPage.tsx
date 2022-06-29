@@ -51,12 +51,12 @@ export const NewPasswordPage = () => {
 
     const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
         password: '',
-        showPassword: false,
+        showPassword: true,
     });
 
     const [valuesConfirmPassword, setValuesConfirmPassword] = React.useState<StateConfirmPassword>({
         confirmPassword: '',
-        showConfirmPassword: false,
+        showConfirmPassword: true,
     });
 
     const handleClickShowPassword = () => {
@@ -107,7 +107,7 @@ export const NewPasswordPage = () => {
                                                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                                                 <Input
                                                     id="password"
-                                                    type={valuesPassword.showPassword ? 'text' : 'password'}
+                                                    type={valuesPassword.showPassword ? 'password' : 'text'}
                                                     name="password"
                                                     placeholder={'Password'}
                                                     onBlur={(e) => formik.setFieldTouched('password', true) }
@@ -134,7 +134,7 @@ export const NewPasswordPage = () => {
                                                 <InputLabel htmlFor="standard-adornment-password">Confirm Password</InputLabel>
                                                 <Input
                                                     id="confirmPassword"
-                                                    type={valuesConfirmPassword.showConfirmPassword ? 'text' : 'password'}
+                                                    type={valuesConfirmPassword.showConfirmPassword ? 'password' : 'text'}
                                                     name="password"
                                                     placeholder={'Confirm Password'}
                                                     onBlur={(e) => formik.setFieldTouched('confirmPassword', true) }
