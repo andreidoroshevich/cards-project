@@ -3,9 +3,9 @@ import {loginReducer} from "../reducers/loginReducer";
 import {registerReducer} from "../reducers/registerReducer";
 import {forgotReducer} from "../reducers/forgotReducer";
 import {newPasswordReducer} from "../reducers/newPasswordReducer";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {profileReducer} from "../reducers/profileReducer";
-import {useDispatch} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 const rootReducer = combineReducers({
@@ -14,20 +14,15 @@ const rootReducer = combineReducers({
     forgot: forgotReducer,
     newPassword: newPasswordReducer,
     profile: profileReducer
-
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 export type AppRootStateType = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
 export const useAppDispatch=()=>useDispatch<AppDispatch>()
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 
-export type AppThunk<ReturnType = void> =ThunkAction<
-    ReturnType,
-    AppRootStateType,
-    unknown,
-    AnyAction>
-
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 
 // @ts-ignore
 window.store = store

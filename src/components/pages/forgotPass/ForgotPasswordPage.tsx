@@ -1,40 +1,39 @@
 import React from 'react'
-import {useSelector} from "react-redux";
 import {Button, FormControl, FormGroup, Grid, TextField} from "@material-ui/core";
-import {useFormik} from 'formik';
 import {Link, Navigate} from "react-router-dom";
-import style from '../login/LoginPage.module.css'
+import style from '../../common/styles/FormStyles.module.css'
 import {PATH} from "../Pages";
-import {AppRootStateType, useAppDispatch} from "../../../store/store";
-import {RequestStatusType} from "../../../reducers/profileReducer";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 import LinearProgress from "@mui/material/LinearProgress";
-import {ErrorSnackbar} from "../../common/ErrorSnackBar";
-import {validateFormErrors} from "../../../utils/error-utils";
+import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
+import {useFormik} from "formik";
+import {validateNewPassEmailFormErrors} from "../../../utils/error-utils";
 import {recoveryPassTC} from "../../../reducers/forgotReducer";
+import {EMAIL_TEMPLATE} from "../../../const/CONST";
 
 
 export const ForgotPasswordPage = () => {
-
     const dispatch = useAppDispatch()
-    const success = useSelector<AppRootStateType, boolean>(state => state.register.success)
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.profile.status)
+    const status = useAppSelector(state => state.profile.status)
+    const info = useAppSelector(state => state.forgot.info)
+    const message = useAppSelector(state => state.forgot.message)
+    console.log(message)
 
     const formik = useFormik({
         initialValues: {
             email: '',
         },
         validate: (values) => {
-            return validateFormErrors(values)
+            return validateNewPassEmailFormErrors(values)
         },
         onSubmit: values => {
-            // dispatch(recoveryPassTC(values))
-            console.log(values)
+            dispatch(recoveryPassTC({email: values.email, message: EMAIL_TEMPLATE}))
             formik.resetForm()
         },
     })
 
-    if (success) {
-        return <Navigate to={PATH.LOGIN_PAGE}/>
+    if (info) {
+        return <Navigate to={PATH.EMAIL_CHECK_PAGE}/>
     }
 
     return (
@@ -43,33 +42,40 @@ export const ForgotPasswordPage = () => {
 
             <Grid container>
                 <div className={style.grid}>
-
                     <Grid item>
                         <div className={style.container}>
                             <div className={style.formTitle}>Forgot your password?</div>
                             <form onSubmit={formik.handleSubmit}>
+
                                 <FormControl>
-                                        <TextField
-                                            label="Email"
-                                            margin="normal"
-                                            {...formik.getFieldProps('email')}
-                                        />
-                                        {formik.touched.email
-                                            && formik.errors.email
-                                            && <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                                        <div className={style.button}>
+                                    <div className={style.field}>
+
+                                        <FormGroup>
+                                            <TextField
+                                                label="Email"
+                                                margin="normal"
+                                                {...formik.getFieldProps('email')}
+                                            />
+                                            {formik.touched.email
+                                                && formik.errors.email
+                                                && <div style={{color: 'red'}}>{formik.errors.email}</div>}
                                             <Button type={'submit'} variant={'contained'}
                                                     color={'primary'}
-                                                    // disabled={!formik.values.email || formik.errors.email}
+                                                    disabled={
+                                                        !!((!formik.values.email)
+                                                            || (formik.errors.email))
+                                                    }
                                             >
                                                 SEND INSTRUCTIONS
                                             </Button>
-                                        </div>
-                                        <div className={style.signUpText}>Enter your email address and we will send you further
-                                            instructions</div>
-                                        <div className={style.signUpLinkText}>
-                                            <Link to={PATH.LOGIN_PAGE}>Try logging in</Link>
-                                        </div>
+                                            <div className={style.signUpText}> Did you remember your password?
+                                            </div>
+                                            <div className={style.signUpLinkText}>
+                                                <Link to={PATH.LOGIN_PAGE}>Try logging in</Link>
+                                            </div>
+
+                                        </FormGroup>
+                                    </div>
 
                                 </FormControl>
                             </form>
@@ -78,9 +84,9 @@ export const ForgotPasswordPage = () => {
                     </Grid>
                 </div>
             </Grid>
+
         </div>
     )
+
+
 }
-
-
-

@@ -1,11 +1,11 @@
 import React from 'react';
 import {Route, Routes, Navigate} from 'react-router-dom';
-import Error404Page from "../common/Error404Page";
-import NewPasswordPage from "./NewPasswordPage";
 import ProfilePage from "./profile/ProfilePage";
 import {RegisterPage} from "./register/RegisterPage";
 import {LoginPage} from "./login/LoginPage";
 import {ForgotPasswordPage} from "./forgotPass/ForgotPasswordPage";
+import {CheckEmail} from "./register/ChekEmail";
+import {NewPasswordPage} from "./newPass/NewPasswordPage";
 
 
 export const PATH = {
@@ -15,6 +15,7 @@ export const PATH = {
     NEW_PASSWORD_PAGE: '/new-password-page',
     PROFILE_PAGE: '/profile-page',
     REGISTER_PAGE: '/register-page',
+    EMAIL_CHECK_PAGE: '/email-check-page',
     TEST_PAGE: '/test-Page',
 }
 
@@ -28,6 +29,7 @@ const Pages = () => {
                 <Route path={PATH.NEW_PASSWORD_PAGE} element={<NewPasswordPage/>}/>
                 <Route path={PATH.REGISTER_PAGE} element={<RegisterPage/>}/>
                 <Route path={PATH.LOGIN_PAGE} element={<LoginPage/>}/>
+                <Route path={PATH.EMAIL_CHECK_PAGE} element={<CheckEmail/>}/>
                 <Route path={'/set-new-password/'}>
                     <Route index element={<div><NewPasswordPage/></div>}/>
                     <Route path={':token'} element={<div><NewPasswordPage/></div>}/>
@@ -35,7 +37,7 @@ const Pages = () => {
                 <Route path={PATH.ERROR_404_PAGE} element={<h1 style={{display: 'flex', justifyContent: 'center'}}>
                     404: PAGE NOT FOUND
                 </h1>}/>
-                <Route path={'*'} element={<Navigate to={'/error-404-page'}/>}/>
+                <Route path={'*'} element={<Navigate to={PATH.ERROR_404_PAGE}/>}/>
             </Routes>
         </div>
     );

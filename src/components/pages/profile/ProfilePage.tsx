@@ -1,15 +1,14 @@
 import React from 'react';
-import {AppRootStateType, useAppDispatch} from "../../../store/store";
-import {useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 import style from "./Profile.module.css"
 import Navbar from "../../Navbar/Navbar";
-import {EditableSpan} from "../../common/EditableSpan";
+import {EditableSpan} from "../../common/pages/EditableSpan";
 import {updateUserNameTC} from "../../../reducers/profileReducer";
 import {changeNameType} from "../../../api/loginAPI";
 
 const ProfilePage = () => {
 
-    const profile = useSelector<AppRootStateType, any>(state => state.profile.profile)
+    const profile = useAppSelector(state => state.profile.profile)
     const dispatch = useAppDispatch()
 
     return (

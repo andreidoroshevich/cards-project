@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import Main from "./components/pages/Main";
-import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "./store/store";
+import {useAppDispatch, useAppSelector} from "./store/store";
 import {initializeAppTC} from "./reducers/profileReducer";
 import {CircularProgress} from "@material-ui/core";
 
 function App() {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.profile.isInitialized)
+    const isInitialized = useAppSelector(state => state.profile.isInitialized)
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(initializeAppTC())

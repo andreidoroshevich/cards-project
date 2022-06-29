@@ -5,21 +5,41 @@ const instance = axios.create({
     withCredentials: true
 })
 
-type ResponseType = {
+export type PassResponseType = {
     info: string
     error: string;
 }
 
-export type RequestPassRecoveryType = {
-    email: string
+type SetNewPassResponseType = {
+    info: string
+    error: string;
+}
+export type newPasswordType = {
+    password: string
+    resetPasswordToken: string
 }
 
+export type SendEmailRequestType = {
+    email: string
+    message: string
+}
+
+
 export const passAPI = {
-    sendEmail: (data: RequestPassRecoveryType) => {
-        return instance.post<ResponseType>('/auth/forgot', data)
+    sendEmail: (data: SendEmailRequestType) => {
+        return instance.post<PassResponseType>('/auth/forgot', data)
             .then((res) => {
                 return res.data
             })
-    }
+    },
+
+    setNewPassword: (data: newPasswordType) => {
+    return instance.post<SetNewPassResponseType>('/auth/set-new-password', data)
+        .then((res) => {
+            return res.data
+        })
+    },
+
+
 }
 

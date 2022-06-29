@@ -1,14 +1,12 @@
 import React from 'react'
-import {useSelector} from "react-redux";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField} from "@material-ui/core";
 import {useFormik} from 'formik';
 import {loginTC} from "../../../reducers/loginReducer";
 import {Link, Navigate} from "react-router-dom";
-import {AppRootStateType, useAppDispatch} from "../../../store/store";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {PATH} from "../Pages";
-import style from '../login/LoginPage.module.css'
-import {ErrorSnackbar} from "../../common/ErrorSnackBar";
-import {RequestStatusType} from "../../../reducers/profileReducer";
+import style from '../../common/styles/FormStyles.module.css'
+import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
 import LinearProgress from "@mui/material/LinearProgress";
 import {validateFormErrors} from "../../../utils/error-utils";
 
@@ -16,14 +14,15 @@ import {validateFormErrors} from "../../../utils/error-utils";
 export type FormikErrorType = {
     email?: string
     password?: string
+    confirmPassword?: string
     rememberMe?: boolean
 }
 
 export const LoginPage = () => {
 
     const dispatch = useAppDispatch()
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.profile.status)
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const status = useAppSelector(state => state.profile.status)
 
     const formik = useFormik({
         initialValues: {
@@ -54,7 +53,10 @@ export const LoginPage = () => {
                         <div className={style.container}>
                             <div className={style.formTitle}>Sign In</div>
                             <form onSubmit={formik.handleSubmit}>
+
                                 <FormControl>
+                                    <div className={style.field}>
+
                                     <FormGroup>
                                         <TextField
                                             label="Email"
@@ -64,15 +66,16 @@ export const LoginPage = () => {
                                         {formik.touched.email
                                             && formik.errors.email
                                             && <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                                        <TextField type="password"
-                                                   label="Password"
-                                                   margin="normal"
-                                                   {...formik.getFieldProps('password')}
-                                        />
-                                        {formik.touched.password
+
+                                            <TextField type="password"
+                                                       label="Password"
+                                                       margin="normal"
+                                                       {...formik.getFieldProps('password')}
+                                            />
+
+                                            {formik.touched.password
                                             && formik.errors.password
                                             && <div style={{color: 'red'}}>{formik.errors.password}</div>}
-
                                         <FormControlLabel label={'Remember me'} control={<Checkbox
                                             checked={formik.values.rememberMe}
                                             {...formik.getFieldProps('rememberMe')}
@@ -95,6 +98,8 @@ export const LoginPage = () => {
                                         </div>
 
                                     </FormGroup>
+                                    </div>
+
                                 </FormControl>
                             </form>
                         </div>

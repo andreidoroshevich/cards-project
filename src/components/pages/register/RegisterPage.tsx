@@ -1,23 +1,21 @@
 import React from 'react'
-import {useSelector} from "react-redux";
 import {Button, FormControl, FormGroup, Grid, TextField} from "@material-ui/core";
 import {useFormik} from 'formik';
 import {Link, Navigate} from "react-router-dom";
-import style from '../login/LoginPage.module.css'
+import style from '../../common/styles/FormStyles.module.css'
 import {registerTC} from "../../../reducers/registerReducer";
 import {PATH} from "../Pages";
-import {AppRootStateType, useAppDispatch} from "../../../store/store";
-import {RequestStatusType} from "../../../reducers/profileReducer";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 import LinearProgress from "@mui/material/LinearProgress";
-import {ErrorSnackbar} from "../../common/ErrorSnackBar";
+import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
 import {validateFormErrors} from "../../../utils/error-utils";
 
 
 export const RegisterPage = () => {
 
     const dispatch = useAppDispatch()
-    const success = useSelector<AppRootStateType, boolean>(state => state.register.success)
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.profile.status)
+    const success = useAppSelector(state => state.register.success)
+    const status = useAppSelector(state => state.profile.status)
 
     const formik = useFormik({
         initialValues: {
@@ -49,6 +47,8 @@ export const RegisterPage = () => {
                             <div className={style.formTitle}>Register</div>
                             <form onSubmit={formik.handleSubmit}>
                                 <FormControl>
+                                    <div className={style.field}>
+
                                     <FormGroup>
                                         <TextField
                                             label="Email"
@@ -82,6 +82,7 @@ export const RegisterPage = () => {
                                         </div>
 
                                     </FormGroup>
+                                    </div>
                                 </FormControl>
                             </form>
                         </div>

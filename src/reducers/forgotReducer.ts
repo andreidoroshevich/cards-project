@@ -1,17 +1,19 @@
 import {AppThunk} from "../store/store";
-import {passAPI, RequestPassRecoveryType} from "../api/passAPI";
+import {passAPI, SendEmailRequestType} from "../api/passAPI";
 import {setAppErrorAC, setAppStatusAC} from "./profileReducer";
 import {Dispatch} from "redux";
 
-const initialState: InitialStateType = {
-    info: ''
+const initialState: PassInitialStateType = {
+    info: '',
+    message: ``
 }
 
-type InitialStateType = {
+export type PassInitialStateType = {
     info: string
+    message: string
 }
 
-export const forgotReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const forgotReducer = (state = initialState, action: ActionsType): PassInitialStateType => {
     switch (action.type) {
         case 'CONFIRM-STATUS':
             return {...state, info: action.info}
@@ -20,21 +22,20 @@ export const forgotReducer = (state = initialState, action: ActionsType): Initia
     }
 }
 
-export const recoveryPassTC = (data: RequestPassRecoveryType): AppThunk => (dispatch: Dispatch) => {
-        dispatch(setAppStatusAC('loading'))
-        passAPI.sendEmail(data)
-            .then((res) => {
-                dispatch(recoveryPassAC(res.info))
-                console.log(res.info)
-            })
-            .catch((error) => {
-                if (error.response) {
-                    dispatch(setAppErrorAC(error.response.data.error))
-                }
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC('succeeded'))
-            })
+export const recoveryPassTC = (data: SendEmailRequestType): AppThunk => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    passAPI.sendEmail(data)
+        .then((res) => {
+            dispatch(recoveryPassAC(res.info))
+        })
+        .catch((error) => {
+            if (error.response) {
+                dispatch(setAppErrorAC(error.response.data.error))
+            }
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('succeeded'))
+        })
 }
 
 export const recoveryPassAC = (info: string) => {
@@ -45,6 +46,7 @@ export const recoveryPassAC = (info: string) => {
         } as const
     )
 }
+
 
 type ActionsType = ReturnType<typeof recoveryPassAC>
 

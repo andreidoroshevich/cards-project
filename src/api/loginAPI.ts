@@ -33,7 +33,7 @@ export type ProfileResponseType = {
 
 export type changeNameType = {
     newName: string,
-    avatar: string
+    avatar: string | undefined
 }
 
 export const AuthAPI = {
