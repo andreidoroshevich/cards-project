@@ -44,7 +44,7 @@
 }
 
 .button Button {
-    width: 100%;
+    width: 90%;
 }
 
 .grid{
@@ -58,6 +58,13 @@
     width: 300px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.fieldNewPass {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+
 
 }
 
@@ -74,5 +81,10 @@
 .email{
     font-weight: bold;
     margin-top: 5px
+}
+
+.fieldMargin {
+    width: 100%;
+    margin-bottom: 20px;
 }
 

@@ -15,7 +15,7 @@ export const PATH = {
     NEW_PASSWORD_PAGE: '/new-password-page',
     PROFILE_PAGE: '/profile-page',
     REGISTER_PAGE: '/register-page',
-    EMAIL_CHECK_PAGE: 'check-email-page/:email',
+    CHECK_EMAIL_PAGE: '/check-email-page/:email',
     TEST_PAGE: '/test-Page',
 }
 
@@ -29,7 +29,7 @@ const Pages = () => {
                 <Route path={PATH.NEW_PASSWORD_PAGE} element={<NewPasswordPage/>}/>
                 <Route path={PATH.REGISTER_PAGE} element={<RegisterPage/>}/>
                 <Route path={PATH.LOGIN_PAGE} element={<LoginPage/>}/>
-                <Route path={PATH.EMAIL_CHECK_PAGE} element={<CheckEmail/>}/>
+                <Route path={PATH.CHECK_EMAIL_PAGE} element={<CheckEmail/>}/>
                 <Route path={'/set-new-password/'}>
                     <Route index element={<div><NewPasswordPage/></div>}/>
                     <Route path={':token'} element={<div><NewPasswordPage/></div>}/>

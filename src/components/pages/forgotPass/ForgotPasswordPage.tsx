@@ -15,7 +15,7 @@ import {EMAIL_TEMPLATE} from "../../../const/CONST";
 export const ForgotPasswordPage = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.profile.status)
-    const info = useAppSelector(state => state.forgot.info)
+    const success = useAppSelector(state => state.forgot.success)
     const navigate=useNavigate()
 
     const formik = useFormik({
@@ -27,13 +27,13 @@ export const ForgotPasswordPage = () => {
         },
         onSubmit: values => {
             dispatch(recoveryPassTC({email: values.email, message: EMAIL_TEMPLATE}))
-            if (info) {
-                navigate(`/check-email-page/${values.email}`)
-            }
-            formik.resetForm()
         },
     })
 
+    console.log(formik)
+    if (success) {
+        navigate(`/check-email-page/${formik.values.email}`)
+    }
 
     return (
         <div className={style.mainContainer}>
@@ -48,7 +48,6 @@ export const ForgotPasswordPage = () => {
 
                                 <FormControl>
                                     <div className={style.field}>
-
                                         <FormGroup>
                                             <TextField
                                                 label="Email"
@@ -58,7 +57,8 @@ export const ForgotPasswordPage = () => {
                                             {formik.touched.email
                                                 && formik.errors.email
                                                 && <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                                            <Button type={'submit'} variant={'contained'}
+
+                                          <div className={style.button}>  <Button type={'submit'} variant={'contained'}
                                                     color={'primary'}
                                                     disabled={
                                                         !!((!formik.values.email)
@@ -66,7 +66,9 @@ export const ForgotPasswordPage = () => {
                                                     }
                                             >
                                                 SEND INSTRUCTIONS
-                                            </Button>
+                                            </Button></div>
+
+
                                             <div className={style.signUpText}> Did you remember your password?
                                             </div>
                                             <div className={style.signUpLinkText}>

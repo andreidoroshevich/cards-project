@@ -1,20 +1,21 @@
 import {AppThunk} from "../store/store";
 import {passAPI, SendEmailRequestType} from "../api/passAPI";
-import {setAppErrorAC, setAppStatusAC} from "./profileReducer";
+import {setAppStatusAC} from "./profileReducer";
 import {Dispatch} from "redux";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 const initialState: PassInitialStateType = {
-    info: '',
+    success: false,
 }
 
 export type PassInitialStateType = {
-    info: string
+    success: boolean
 }
 
 export const forgotReducer = (state = initialState, action: ActionsType): PassInitialStateType => {
     switch (action.type) {
         case 'CONFIRM-STATUS':
-            return {...state, info: action.info}
+            return {...state, success: action.success}
         default:
             return state
     }
@@ -24,21 +25,21 @@ export const recoveryPassTC = (data: SendEmailRequestType): AppThunk => (dispatc
     dispatch(setAppStatusAC('loading'))
     passAPI.sendEmail(data)
         .then((res) => {
-            dispatch(recoveryPassAC(res.info))
+            dispatch(recoveryPassAC(true))
         })
         .catch((error) => {
-                dispatch(setAppErrorAC(error.response.data.error))
+                handleServerNetworkError(dispatch,error.response.data.error)
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
 
-export const recoveryPassAC = (info: string) => {
+export const recoveryPassAC = (success: boolean) => {
     return (
         {
             type: 'CONFIRM-STATUS',
-            info
+            success
         } as const
     )
 }

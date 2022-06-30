@@ -6,7 +6,7 @@ const instance = axios.create({
 })
 
 export type PassResponseType = {
-    info: string
+    success: boolean
     error: string;
 }
 
