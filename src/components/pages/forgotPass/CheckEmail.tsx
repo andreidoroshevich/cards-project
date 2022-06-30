@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from "@mui/material/Grid";
 import style from "./CheckEmail.module.css";
-import Navbar from "../../Navbar/Navbar";
 import {Box} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import {useParams} from "react-router-dom";
@@ -14,7 +13,6 @@ const CheckEmail = () => {
 		<>
 			<Grid container>
 				<div className={style.background}>
-					<Navbar/>
 					<Box display="flex" justifyContent="center">
 						<Paper elevation={6} className={style.paper}>
 							<div className={style.title}>CHECK EMAIL</div>

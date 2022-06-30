@@ -4,39 +4,44 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
-import Navbar from "../../Navbar/Navbar";
 import style from './ForgotPasswordPage.module.css'
 import TextField from "@mui/material/TextField";
-import {useDispatch} from "react-redux";
 import Paper from '@mui/material/Paper';
 import {Box} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
+import {validateNewPassEmailFormErrors} from "../../../utils/error-utils";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
+import {recoveryPassTC} from "../../../reducers/forgotReducer";
+import {EMAIL_TEMPLATE} from "../../../const/CONST";
 
 const ForgotPasswordPage = () => {
-
 	const navigate = useNavigate()
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
+	const info = useAppSelector(state => state.forgot.info)
+
 
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 		},
 		validate: values => {
-			if (!values.email) {
-				return {email: 'Email is required'}
-			}
+			return validateNewPassEmailFormErrors(values)
 		},
-		onSubmit: values => {
-			navigate(`/check-email/${values.email}`)
-			// dispatch(loginTC(values));
+		onSubmit: (values) => {
+			dispatch(recoveryPassTC({email: values.email, message: EMAIL_TEMPLATE}))
+			// if (info) {
+				navigate(`/check-email-page/${values.email}`)
+				formik.resetForm()
+			// }
 		},
 	})
+
+
 
 	return (
 		<>
 			<Grid container>
 				<div className={style.background}>
-					<Navbar/>
 					<Box display="flex" justifyContent="center">
 						<Paper elevation={6} className={style.paper}>
 							<form onSubmit={formik.handleSubmit}>
@@ -46,10 +51,10 @@ const ForgotPasswordPage = () => {
 										<TextField className={style.input}
 										           label="Email" margin="none" size={'small'}
 										           {...formik.getFieldProps('email')}/>
-										{formik.errors.email ?
-											<div className={style.error}>{formik.errors.email}</div> : <br/>}
+										{formik.touched.email &&
+											<div className={style.error}>{formik.errors.email}</div>}
 										<div className={style.titleEnterMail}>
-											Enter your email adress and we will send you further instruction
+											Enter your email address and we will send you further instruction
 										</div>
 										<Button type={'submit'} variant={'contained'} color={'primary'}>
 											Send instruction
@@ -57,7 +62,7 @@ const ForgotPasswordPage = () => {
 										<div className={style.question}>
 											Did you remember your password?
 										</div>
-										<Link className={style.linkTryLoggingIn} to={'/login-page'} >
+										<Link className={style.linkTryLoggingIn} to={'/login-page'}>
 											Try logging in
 										</Link>
 									</FormGroup>
