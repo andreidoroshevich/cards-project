@@ -30,7 +30,6 @@ export const ForgotPasswordPage = () => {
         },
     })
 
-    console.log(formik)
     if (success) {
         navigate(`/check-email-page/${formik.values.email}`)
     }
