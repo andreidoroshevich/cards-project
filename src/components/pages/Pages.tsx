@@ -15,7 +15,7 @@ export const PATH = {
     NEW_PASSWORD_PAGE: '/new-password-page',
     PROFILE_PAGE: '/profile-page',
     REGISTER_PAGE: '/register-page',
-    EMAIL_CHECK_PAGE: '/email-check-page',
+    EMAIL_CHECK_PAGE: '/email-check-page/',
     TEST_PAGE: '/test-Page',
 }
 

@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AuthAPI, changeNameType, ProfileResponseType} from "../api/loginAPI";
-import {setIsLoggedIn} from "./loginReducer";
+import {setIsLoggedInAC} from "./loginReducer";
 import {AppThunk} from "../store/store";
 import {AxiosError} from "axios";
 
@@ -52,14 +52,14 @@ export const setAppIsInitializedAC = (isInitialized: boolean) => {
     } as const
 }
 
-export const setProfile = (profile: ProfileResponseType) => {
+export const setProfileAC = (profile: ProfileResponseType) => {
     return {
         type: 'SET-PROFILE',
         profile
     } as const
 }
 
-export const updateUserName = (newName: string) => {
+export const updateUserNameAC = (newName: string) => {
     return {
         type: 'APP-UPDATE-USER-NAME',
         newName
@@ -69,9 +69,9 @@ export const updateUserName = (newName: string) => {
 export const initializeAppTC = (): AppThunk => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.me().then((res) => {
-        dispatch(setIsLoggedIn(true))
+        dispatch(setIsLoggedInAC(true))
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(setProfile(res))
+        dispatch(setProfileAC(res))
     })
         .catch((error: AxiosError) => {
             console.log()
@@ -87,7 +87,7 @@ export const updateUserNameTC = (data: changeNameType): AppThunk => (dispatch: D
     dispatch(setAppStatusAC('loading'))
     AuthAPI.updateProfile(data).then(() => {
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(updateUserName(data.newName))
+        dispatch(updateUserNameAC(data.newName))
     })
         .catch((error) => {
             console.log(error.message)
@@ -101,8 +101,8 @@ export const updateUserNameTC = (data: changeNameType): AppThunk => (dispatch: D
 export type SetAppActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type setAppIsInitializedType = ReturnType<typeof setAppIsInitializedAC>
-export type updateUserNameType = ReturnType<typeof updateUserName>
-export type setProfileType = ReturnType<typeof setProfile>
+export type updateUserNameType = ReturnType<typeof updateUserNameAC>
+export type setProfileType = ReturnType<typeof setProfileAC>
 
 export type AuthActionsType = SetAppActionType
     | SetAppErrorActionType

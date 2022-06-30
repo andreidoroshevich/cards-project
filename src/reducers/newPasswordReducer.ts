@@ -54,11 +54,10 @@ export const setInfoAC = (info: string) => {
 
 
 export const isPassChangedAC = (isPassChanged: boolean) => {
-    return (
-        {
+    return {
             type: 'IS-PASS-CHANGED',
             isPassChanged
-        } as const)
+        } as const
 }
 
 type ActionsType = ReturnType<typeof setInfoAC> | ReturnType<typeof isPassChangedAC>
