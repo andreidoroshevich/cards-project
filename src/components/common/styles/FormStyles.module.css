@@ -71,7 +71,8 @@
     margin: 50px auto 50px auto;
 }
 
-.field FormControl {
-    margin-bottom: 10px;
+.email{
+    font-weight: bold;
+    margin-top: 5px
 }
 

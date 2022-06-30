@@ -1,10 +1,11 @@
 import React from 'react'
 import {Grid} from "@material-ui/core";
 import style from '../../common/styles/FormStyles.module.css'
+import {useParams} from "react-router-dom";
 
 
 export const CheckEmail = () => {
-
+const {email} = useParams()
 
     return (
 
@@ -20,7 +21,8 @@ export const CheckEmail = () => {
                             <div className={style.emailPict}>&#128232;</div>
 
                             <div className={style.signUpText}>
-                                We've send instructions to your Email
+                                We've send instructions to Email
+                               <div className={style.email}>{email}</div>
                             </div>
                         </div>
                     </Grid>

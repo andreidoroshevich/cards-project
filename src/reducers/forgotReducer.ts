@@ -5,12 +5,10 @@ import {Dispatch} from "redux";
 
 const initialState: PassInitialStateType = {
     info: '',
-    message: ``
 }
 
 export type PassInitialStateType = {
     info: string
-    message: string
 }
 
 export const forgotReducer = (state = initialState, action: ActionsType): PassInitialStateType => {
@@ -29,9 +27,7 @@ export const recoveryPassTC = (data: SendEmailRequestType): AppThunk => (dispatc
             dispatch(recoveryPassAC(res.info))
         })
         .catch((error) => {
-            if (error.response) {
                 dispatch(setAppErrorAC(error.response.data.error))
-            }
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))

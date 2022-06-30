@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, FormControl, FormGroup, Grid, TextField} from "@material-ui/core";
-import {Link, Navigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import style from '../../common/styles/FormStyles.module.css'
 import {PATH} from "../Pages";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
@@ -16,7 +16,7 @@ export const ForgotPasswordPage = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.profile.status)
     const info = useAppSelector(state => state.forgot.info)
-
+    const navigate=useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -27,13 +27,13 @@ export const ForgotPasswordPage = () => {
         },
         onSubmit: values => {
             dispatch(recoveryPassTC({email: values.email, message: EMAIL_TEMPLATE}))
+            if (info) {
+                navigate(`/check-email-page/${values.email}`)
+            }
             formik.resetForm()
         },
     })
 
-    if (info) {
-        return <Navigate to={PATH.EMAIL_CHECK_PAGE}/>
-    }
 
     return (
         <div className={style.mainContainer}>

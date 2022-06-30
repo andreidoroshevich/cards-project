@@ -76,7 +76,6 @@ export const initializeAppTC = (): AppThunk => (dispatch: Dispatch) => {
         .catch((error: AxiosError) => {
             console.log()
         })
-
         .finally(() => {
             dispatch(setAppIsInitializedAC(true))
             dispatch(setAppStatusAC('succeeded'))

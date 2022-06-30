@@ -38,7 +38,6 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch: Dispatch)
         .then((res) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setProfileAC(res))
-            console.log(res)
         })
         .catch((e) => {
             handleServerNetworkError(dispatch, e.response.data.error)

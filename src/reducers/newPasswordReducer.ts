@@ -34,9 +34,7 @@ export const setNewPassTC = (data: newPasswordType): AppThunk => (dispatch: Disp
             dispatch(isPassChangedAC(true))
         })
         .catch((error) => {
-            if (error.response) {
                 dispatch(setAppErrorAC(error.response.data.error))
-            }
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
