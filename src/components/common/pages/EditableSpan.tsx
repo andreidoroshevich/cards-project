@@ -31,4 +31,4 @@ const EditableSpan = React.memo((props: EditableSpanType) => {
     )
 })
 
-export default EditableSpan
+export default EditableSpan;

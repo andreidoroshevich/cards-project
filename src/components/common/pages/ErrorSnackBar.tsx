@@ -30,4 +30,4 @@ const ErrorSnackbar = () => {
     );
 };
 
-export default ErrorSnackbar
+export default ErrorSnackbar;
