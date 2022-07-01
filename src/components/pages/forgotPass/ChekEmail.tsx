@@ -4,7 +4,7 @@ import style from '../../common/styles/FormStyles.module.css'
 import {useParams} from "react-router-dom";
 
 
-export const CheckEmail = () => {
+const CheckEmail = () => {
 const {email} = useParams()
 
     return (
@@ -33,4 +33,4 @@ const {email} = useParams()
 }
 
 
-
+export default CheckEmail

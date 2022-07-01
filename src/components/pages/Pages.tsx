@@ -1,11 +1,11 @@
 import React from 'react';
 import {Route, Routes, Navigate} from 'react-router-dom';
 import ProfilePage from "./profile/ProfilePage";
-import {RegisterPage} from "./register/RegisterPage";
-import {LoginPage} from "./login/LoginPage";
-import {ForgotPasswordPage} from "./forgotPass/ForgotPasswordPage";
-import {CheckEmail} from "./forgotPass/ChekEmail";
-import {NewPasswordPage} from "./newPass/NewPasswordPage";
+import RegisterPage from "./register/RegisterPage";
+import LoginPage from "./login/LoginPage";
+import ForgotPasswordPage from "./forgotPass/ForgotPasswordPage";
+import CheckEmail from "./forgotPass/ChekEmail";
+import NewPasswordPage from "./newPass/NewPasswordPage";
 import Tests from "./Tests";
 import Cards from "./Cards";
 
