@@ -5,10 +5,12 @@ import Navbar from "../../navbar/Navbar";
 import EditableSpan from "../../common/pages/EditableSpan";
 import {updateUserNameTC} from "../../../reducers/profileReducer";
 import {changeNameType} from "../../../api/loginAPI";
+import Avatar from "../../../assets/avatar.jpg"
 
 const ProfilePage = () => {
 
     const profile = useAppSelector(state => state.profile.profile)
+    const avatar=useAppSelector(state=>state.profile.profile.avatar)
     const dispatch = useAppDispatch()
 
     return (
@@ -20,8 +22,13 @@ const ProfilePage = () => {
                         <div className={style.profile}>
 
                             <div className={style.innerContainer}>
-                                <div><img alt={'avatar'} className={style.photo} src={profile.avatar}/>
+                                {avatar ?
+                                <div>
+                                    <img alt={'avatar'} className={style.photo} src={profile.avatar}/>
                                 </div>
+                                :<div>
+                                <img alt={'avatar'} className={style.photo} src={Avatar}/>
+                            </div>}
                                 <div className={style.name}><b>Имя: </b>
                                     <EditableSpan
                                         title={profile.name}
