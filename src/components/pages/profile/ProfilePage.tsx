@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import style from "./Profile.module.css"
 import Navbar from "../../navbar/Navbar";
-import EditableSpan from "../../common/pages/EditableSpan";
+import {EditableSpan} from "../../common/pages/EditableSpan";
 import {updateUserNameTC} from "../../../reducers/profileReducer";
 import {changeNameType} from "../../../api/loginAPI";
 
