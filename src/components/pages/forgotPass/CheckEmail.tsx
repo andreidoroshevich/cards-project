@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import style from "./CheckEmail.module.css";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 const CheckEmail = () => {
@@ -19,6 +19,11 @@ const CheckEmail = () => {
 							<img className={style.img} src={imgURL}/>
 							<div className={style.titleSend}>We`ve send an Email with instructions to</div>
 							<div className={style.email}>{email}</div>
+							<div className={style.email}>
+								<Link className={style.email} to={'/login-page'}>
+									Try logging in
+								</Link>
+							</div>
 						</Paper>
 					</Box>
 				</div>
