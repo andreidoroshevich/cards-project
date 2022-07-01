@@ -5,14 +5,14 @@ import style from '../../common/styles/FormStyles.module.css'
 import {PATH} from "../Pages";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import LinearProgress from "@mui/material/LinearProgress";
-import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
+import ErrorSnackbar from "../../common/pages/ErrorSnackBar";
 import {useFormik} from "formik";
 import {validateNewPassEmailFormErrors} from "../../../utils/error-utils";
 import {recoveryPassTC} from "../../../reducers/forgotReducer";
 import {EMAIL_TEMPLATE} from "../../../const/CONST";
 
 
-export const ForgotPasswordPage = () => {
+const ForgotPasswordPage = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.profile.status)
     const success = useAppSelector(state => state.forgot.success)
@@ -87,6 +87,5 @@ export const ForgotPasswordPage = () => {
 
         </div>
     )
-
-
 }
+export default ForgotPasswordPage

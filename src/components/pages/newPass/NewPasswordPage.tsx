@@ -4,7 +4,7 @@ import {useFormik} from 'formik';
 import {Link, Navigate, useParams} from "react-router-dom";
 import style from '../../common/styles/FormStyles.module.css'
 import {setNewPassTC} from "../../../reducers/newPasswordReducer";
-import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
+import ErrorSnackbar from "../../common/pages/ErrorSnackBar";
 import {validateNewPassFormErrors} from "../../../utils/error-utils";
 import LinearProgress from "@mui/material/LinearProgress";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
@@ -28,7 +28,7 @@ type StateConfirmPassword = {
 }
 
 
-export const NewPasswordPage = () => {
+const NewPasswordPage = () => {
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.profile.status)
@@ -187,3 +187,5 @@ export const NewPasswordPage = () => {
         </div>
     )
 }
+
+export default NewPasswordPage

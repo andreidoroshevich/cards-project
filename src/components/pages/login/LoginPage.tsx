@@ -6,7 +6,7 @@ import {Link, Navigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {PATH} from "../Pages";
 import style from '../../common/styles/FormStyles.module.css'
-import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
+import ErrorSnackbar from "../../common/pages/ErrorSnackBar";
 import LinearProgress from "@mui/material/LinearProgress";
 import {validateFormErrors} from "../../../utils/error-utils";
 import IconButton from '@mui/material/IconButton';
@@ -30,7 +30,7 @@ type StatePassword = {
     showPassword: boolean;
 }
 
-export const LoginPage = () => {
+const LoginPage = () => {
 
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
@@ -165,3 +165,5 @@ export const LoginPage = () => {
         </div>
     )
 }
+
+export default LoginPage

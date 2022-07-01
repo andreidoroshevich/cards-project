@@ -1,11 +1,11 @@
 import React from 'react';
 import style from './Navbar.module.css';
-import NavbarItem from "./navBarComponents/NavbarItem";
 import {Navigate} from "react-router-dom";
 import {logoutTC} from "../../reducers/loginReducer";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {PATH} from "../pages/Pages";
 import LinearProgress from "@mui/material/LinearProgress";
+import NavbarItem from "./navBarComponents/NavbarItem";
 
 
 const Navbar = () => {
