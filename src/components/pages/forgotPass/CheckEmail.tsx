@@ -19,6 +19,7 @@ const CheckEmail = () => {
 							<img className={style.img} src={imgURL}/>
 							<div className={style.titleSend}>We`ve send an Email with instructions to</div>
 							<div className={style.email}>{email}</div>
+							<div className={style.text}>Do you remember your password?</div>
 							<div className={style.email}>
 								<Link className={style.email} to={'/login-page'}>
 									Try logging in
