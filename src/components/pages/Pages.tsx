@@ -6,6 +6,8 @@ import {LoginPage} from "./login/LoginPage";
 import {ForgotPasswordPage} from "./forgotPass/ForgotPasswordPage";
 import {CheckEmail} from "./forgotPass/ChekEmail";
 import {NewPasswordPage} from "./newPass/NewPasswordPage";
+import Tests from "./Tests";
+import Cards from "./Cards";
 
 
 export const PATH = {
@@ -17,6 +19,7 @@ export const PATH = {
     REGISTER_PAGE: '/register-page',
     CHECK_EMAIL_PAGE: '/check-email-page/:email',
     TEST_PAGE: '/test-Page',
+    CARDS_PAGE: '/cards-Page',
 }
 
 const Pages = () => {
@@ -30,6 +33,8 @@ const Pages = () => {
                 <Route path={PATH.REGISTER_PAGE} element={<RegisterPage/>}/>
                 <Route path={PATH.LOGIN_PAGE} element={<LoginPage/>}/>
                 <Route path={PATH.CHECK_EMAIL_PAGE} element={<CheckEmail/>}/>
+                <Route path={PATH.TEST_PAGE} element={<Tests/>}/>
+                <Route path={PATH.CARDS_PAGE} element={<Cards/>}/>
                 <Route path={'/set-new-password/'}>
                     <Route index element={<div><NewPasswordPage/></div>}/>
                     <Route path={':token'} element={<div><NewPasswordPage/></div>}/>

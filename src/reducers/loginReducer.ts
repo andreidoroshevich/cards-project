@@ -51,7 +51,7 @@ export const logoutTC = (): AppThunk => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.logout()
         .then((res) => {
-            if (res.info === 'logOut success —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
+            if (res.info) {
                 dispatch(setIsLoggedInAC(false))
             }
         })
