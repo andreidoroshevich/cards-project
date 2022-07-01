@@ -4,7 +4,7 @@ import ProfilePage from "./profile/ProfilePage";
 import RegisterPage from "./register/RegisterPage";
 import LoginPage from "./login/LoginPage";
 import ForgotPasswordPage from "./forgotPass/ForgotPasswordPage";
-import CheckEmail from "./forgotPass/ChekEmail";
+import CheckEmail from "./forgotPass/CheсkEmail";
 import NewPasswordPage from "./newPass/NewPasswordPage";
 import Tests from "./Tests";
 import Cards from "./Cards";
