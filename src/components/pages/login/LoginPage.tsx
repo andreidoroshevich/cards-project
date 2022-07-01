@@ -6,7 +6,7 @@ import {Link, Navigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {PATH} from "../Pages";
 import style from '../../common/styles/FormStyles.module.css'
-import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
+import ErrorSnackbar from "../../common/pages/ErrorSnackBar";
 import LinearProgress from "@mui/material/LinearProgress";
 import {validateFormErrors} from "../../../utils/error-utils";
 import IconButton from '@mui/material/IconButton';
@@ -30,7 +30,7 @@ type StatePassword = {
     showPassword: boolean;
 }
 
-export const LoginPage = () => {
+const LoginPage = () => {
 
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
@@ -53,7 +53,7 @@ export const LoginPage = () => {
 
     const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
         password: '',
-        showPassword: false,
+        showPassword: true,
     });
 
 
@@ -63,6 +63,7 @@ export const LoginPage = () => {
             showPassword: !valuesPassword.showPassword,
         });
     };
+
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -107,7 +108,7 @@ export const LoginPage = () => {
                                                 type={valuesPassword.showPassword ? 'password' : 'text'}
                                                 name="password"
                                                 placeholder={'Password'}
-                                                onBlur={(e) => formik.setFieldTouched('password', true) }
+                                                onBlur={() => formik.setFieldTouched('password', true) }
                                                 onChange={formik.handleChange}
                                                 value={formik.values.password}
                                                 autoComplete="on"
@@ -164,3 +165,5 @@ export const LoginPage = () => {
         </div>
     )
 }
+
+export default LoginPage

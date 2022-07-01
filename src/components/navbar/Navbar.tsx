@@ -25,9 +25,9 @@ const Navbar = () => {
         <div>
             <nav className={style.navbar}>
                 <div className={style.menu}>
-                    <NavbarItem item={'forgot-password-page'} title={'ForgotPassword'}/>
-                    <NavbarItem item={'new-password-page'} title={'NewPassword'}/>
                     <NavbarItem item={'profile-page'} title={'Profile'}/>
+                    <NavbarItem item={'test-page'} title={'Tests'}/>
+                    <NavbarItem item={'cards-page'} title={'Cards'}/>
                 </div>
                 <div onClick={logoutHandler} className={style.loginBlock}>Logout <div className={style.logoutIcon}>&#9094;</div></div>
             </nav>

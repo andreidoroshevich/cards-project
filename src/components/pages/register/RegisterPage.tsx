@@ -7,11 +7,21 @@ import {registerTC} from "../../../reducers/registerReducer";
 import {PATH} from "../Pages";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import LinearProgress from "@mui/material/LinearProgress";
-import {ErrorSnackbar} from "../../common/pages/ErrorSnackBar";
+import ErrorSnackbar from "../../common/pages/ErrorSnackBar";
 import {validateFormErrors} from "../../../utils/error-utils";
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
 
+type StatePassword = {
+    password: string;
+    showPassword: boolean;
+}
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
 
     const dispatch = useAppDispatch()
     const success = useAppSelector(state => state.register.success)
@@ -31,9 +41,30 @@ export const RegisterPage = () => {
         },
     })
 
+
+
+    const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
+        password: '',
+        showPassword: true,
+    });
+
+
+    const handleClickShowPassword = () => {
+        setValuesPassword({
+            ...valuesPassword,
+            showPassword: !valuesPassword.showPassword,
+        });
+    };
+
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
     if (success) {
         return <Navigate to={PATH.LOGIN_PAGE}/>
     }
+
 
     return (
         <div className={style.mainContainer}>
@@ -58,14 +89,32 @@ export const RegisterPage = () => {
                                         {formik.touched.email
                                             && formik.errors.email
                                             && <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                                        <TextField type="password"
-                                                   label="Password"
-                                                   margin="normal"
-                                                   {...formik.getFieldProps('password')}
-                                        />
-                                        {formik.touched.password
-                                            && formik.errors.password
-                                            && <div style={{color: 'red'}}>{formik.errors.password}</div>}
+                                        <FormControl variant="standard">
+                                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                                            <Input
+                                                id="password"
+                                                type={valuesPassword.showPassword ? 'password' : 'text'}
+                                                name="password"
+                                                placeholder={'Password'}
+                                                onBlur={() => formik.setFieldTouched('password', true) }
+                                                onChange={formik.handleChange}
+                                                value={formik.values.password}
+                                                autoComplete="on"
+                                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}>
+                                                            {valuesPassword.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
+                                            />
+                                        </FormControl>
+                                        {formik.errors.password && formik.touched.password &&
+                                            <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
                                         <div className={style.button}>
                                             <Button type={'submit'} variant={'contained'}
@@ -95,4 +144,4 @@ export const RegisterPage = () => {
 }
 
 
-
+export default RegisterPage

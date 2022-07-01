@@ -7,7 +7,7 @@ import {useFormik} from "formik";
 import style from './ForgotPasswordPage.module.css'
 import TextField from "@mui/material/TextField";
 import Paper from '@mui/material/Paper';
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {Link, useNavigate} from "react-router-dom";
 import {validateNewPassEmailFormErrors} from "../../../utils/error-utils";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
@@ -30,12 +30,11 @@ const ForgotPasswordPage = () => {
 		onSubmit: (values) => {
 			dispatch(recoveryPassTC({email: values.email, message: EMAIL_TEMPLATE}))
 			// if (info) {
-				navigate(`/check-email-page/${values.email}`)
-				formik.resetForm()
+			navigate(`/check-email-page/${values.email}`)
+			formik.resetForm()
 			// }
 		},
 	})
-
 
 
 	return (
@@ -52,11 +51,15 @@ const ForgotPasswordPage = () => {
 										           label="Email" margin="none" size={'small'}
 										           {...formik.getFieldProps('email')}/>
 										{formik.touched.email &&
-											<div className={style.error}>{formik.errors.email}</div>}
+                                            <div className={style.error}>{formik.errors.email}</div>}
 										<div className={style.titleEnterMail}>
 											Enter your email address and we will send you further instruction
 										</div>
-										<Button type={'submit'} variant={'contained'} color={'primary'}>
+										<Button type={'submit'} variant={'contained'} color={'primary'}
+										        disabled={
+											        !!((!formik.values.email)
+												        || (formik.errors.email))
+										        }>
 											Send instruction
 										</Button>
 										<div className={style.question}>

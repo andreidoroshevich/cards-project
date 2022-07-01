@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "@mui/material/Grid";
 import style from "./CheckEmail.module.css";
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import {useParams} from "react-router-dom";
 

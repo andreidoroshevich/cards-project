@@ -1,7 +1,8 @@
 import React from 'react';
 import "./NewPasswordPage.css";
 import Grid from "@mui/material/Grid";
-import {Box, OutlinedInput} from "@mui/material";
+import Box from "@mui/material/Box";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Paper from "@mui/material/Paper";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
@@ -47,7 +48,7 @@ const NewPasswordPage = () => {
 
 	const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
 		password: '',
-		showPassword: false,
+		showPassword: true,
 	});
 	const [valuesConfirmPassword, setValuesConfirmPassword] = React.useState<StateConfirmPassword>({
 		confirmPassword: '',
@@ -65,8 +66,6 @@ const NewPasswordPage = () => {
 			showConfirmPassword: !valuesConfirmPassword.showConfirmPassword,
 		});
 	};
-
-
 	const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 	}
@@ -110,7 +109,7 @@ const NewPasswordPage = () => {
 									<h4 className={'title'}>Repeat new password</h4>
 									<OutlinedInput
 										id="confirmPassword"
-										type={valuesConfirmPassword.showConfirmPassword ? 'text' : 'password'}
+										type={valuesConfirmPassword.showConfirmPassword ? 'password' : 'text'}
 										name="confirmPassword"
 										size='small'
 										placeholder={'Repeat new password'}
@@ -126,8 +125,8 @@ const NewPasswordPage = () => {
 													onClick={handleClickShowConfirmPassword}
 													onMouseDown={handleMouseDownPassword}
 												>
-													{valuesConfirmPassword.showConfirmPassword ? <Visibility/> :
-														<VisibilityOff/>}
+													{valuesConfirmPassword.showConfirmPassword ? <VisibilityOff/> :
+														<Visibility/>}
 												</IconButton>
 											</InputAdornment>
 										}
@@ -140,7 +139,10 @@ const NewPasswordPage = () => {
 								<div className={'titleEnterMail'}>
 									Create new password and we will send you further instructions to email
 								</div>
-								<Button type={'submit'} variant={'contained'} color={'primary'}>
+								<Button type={'submit'} variant={'contained'} color={'primary'}
+								        disabled={
+									        !!((!formik.values.password && !formik.values.confirmPassword)
+										        || (formik.errors.password || formik.errors.confirmPassword))}>
 									create new password
 								</Button>
 								<div className={'question'}>
