@@ -1,4 +1,4 @@
-import {instance} from "./loginAPI";
+import axios from "axios";
 
 type PassResponseType = {
 	info: string
@@ -20,6 +20,11 @@ type NewPasswordResponseType = {
 	info: string
 	error: string
 }
+
+const instance = axios.create({
+	baseURL: 'https://neko-back.herokuapp.com/2.0',
+	withCredentials: true
+})
 
 
 export const passAPI = {
