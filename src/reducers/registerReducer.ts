@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {RegisterAPI, RegisterRequestDataType} from "../api/registerAPI";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {setAppStatusAC} from "./profileReducer";
@@ -30,7 +29,7 @@ export const registerAC = (success: boolean) => {
 type SetIsLoggedInType = ReturnType<typeof registerAC>
 export type RegisterActionsType = SetIsLoggedInType
 
-export const registerTC = (data: RegisterRequestDataType): AppThunk=>(dispatch: Dispatch)=>{
+export const registerTC = (data: RegisterRequestDataType): AppThunk=>(dispatch)=>{
     dispatch(setAppStatusAC('loading'))
     RegisterAPI.register(data)
         .then(()=>{

@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {AuthAPI, LoginParamsType} from "../api/loginAPI";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {setAppStatusAC, setProfileAC} from "./profileReducer";
@@ -32,7 +31,7 @@ type SetIsLoggedInType = ReturnType<typeof setIsLoggedInAC>
 
 export type LoginActionsType = SetIsLoggedInType
 
-export const loginTC = (data: LoginParamsType): AppThunk => (dispatch: Dispatch) => {
+export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.login(data)
         .then((res) => {
@@ -47,13 +46,11 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch: Dispatch)
         })
 }
 
-export const logoutTC = (): AppThunk => (dispatch: Dispatch) => {
+export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.logout()
-        .then((res) => {
-            if (res.info) {
+        .then(() => {
                 dispatch(setIsLoggedInAC(false))
-            }
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))

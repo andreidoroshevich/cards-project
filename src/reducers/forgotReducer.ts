@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {AppThunk} from "../store/store";
 import {EmailRequestType, passAPI} from "../api/passAPI";
 import {setAppErrorAC, setAppStatusAC} from "./profileReducer";
@@ -25,7 +24,7 @@ export const recoveryPassAC = (info: string) => {
 	return {type: 'CONFIRM_STATUS', info} as const
 }
 
-export const recoveryPassTC = (data: EmailRequestType): AppThunk => (dispatch: Dispatch) => {
+export const recoveryPassTC = (data: EmailRequestType): AppThunk => (dispatch) => {
 	dispatch(setAppStatusAC('loading'))
 	passAPI.sendEmail(data)
 		.then(res => {

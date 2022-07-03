@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {AuthAPI, changeNameType, ProfileResponseType} from "../api/loginAPI";
 import {setIsLoggedInAC} from "./loginReducer";
 import {AppThunk} from "../store/store";
@@ -66,7 +65,7 @@ export const updateUserNameAC = (newName: string) => {
     } as const
 }
 
-export const initializeAppTC = (): AppThunk => (dispatch: Dispatch) => {
+export const initializeAppTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.me().then((res) => {
         dispatch(setIsLoggedInAC(true))
@@ -82,7 +81,7 @@ export const initializeAppTC = (): AppThunk => (dispatch: Dispatch) => {
         })
 }
 
-export const updateUserNameTC = (data: changeNameType): AppThunk => (dispatch: Dispatch) => {
+export const updateUserNameTC = (data: changeNameType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.updateProfile(data).then(() => {
         dispatch(setAppStatusAC('succeeded'))
