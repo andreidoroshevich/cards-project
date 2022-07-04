@@ -1,7 +1,6 @@
-import {Dispatch} from "redux";
 import {AuthAPI, LoginParamsType} from "../api/loginAPI";
 import {handleServerNetworkError} from "../utils/error-utils";
-import {setAppStatusAC, setProfile} from "./profileReducer";
+import {setAppStatusAC, setProfileAC} from "./profileReducer";
 import {AppThunk} from "../store/store";
 
 const initialState = {
@@ -20,7 +19,7 @@ export const loginReducer = (state:InitialStateType = initialState, action: Logi
     }
 }
 
-export const setIsLoggedIn = (value: boolean) => {
+export const setIsLoggedInAC = (value: boolean) => {
     return {
         type: 'LOGIN/SET-IS-LOGGED-IN',
         value
@@ -28,33 +27,30 @@ export const setIsLoggedIn = (value: boolean) => {
 }
 
 
-type SetIsLoggedInType = ReturnType<typeof setIsLoggedIn>
+type SetIsLoggedInType = ReturnType<typeof setIsLoggedInAC>
 
 export type LoginActionsType = SetIsLoggedInType
 
-export const loginTC = (data: LoginParamsType): AppThunk => (dispatch: Dispatch) => {
+export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.login(data)
         .then((res) => {
-            dispatch(setIsLoggedIn(true))
-            dispatch(setProfile(res))
-            console.log(res)
+            dispatch(setIsLoggedInAC(true))
+            dispatch(setProfileAC(res))//в стэйт сохраняю профиль чтоб отрисовать
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.response.data.error)
+            handleServerNetworkError(dispatch, e.response.data.error)//если не верный пароли или логин
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
 
-export const logoutTC = (): AppThunk => (dispatch: Dispatch) => {
+export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.logout()
-        .then((res) => {
-            if (res.info === 'logOut success —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
-                dispatch(setIsLoggedIn(false))
-            }
+        .then(() => {
+                dispatch(setIsLoggedInAC(false))
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
