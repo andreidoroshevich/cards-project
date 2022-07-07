@@ -18,7 +18,6 @@ export const Paginator = (props: PaginatorPropsType) => {
         <Stack spacing={10}>
             <Pagination
                 count={10}
-                // page={currentPage}
                 defaultPage={1}
                 color="primary"
                 onChange={handleChange}/>

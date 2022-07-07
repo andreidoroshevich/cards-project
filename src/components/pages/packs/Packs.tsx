@@ -14,7 +14,7 @@ import {deletePackTC, getPacksTC, savePageAC, saveUserIdAC, updatePackTC} from "
 import {RangeSlider} from "../../common/pages/slider/RangeSlider";
 import {SearchAppBar} from "../searchBar/SearchBar";
 import {Paginator} from "../../common/pages/pagination/Paginator";
-import {Selector} from "../../common/pages/select/Select";
+import {Selector} from "../../common/pages/select/Selector";
 import Navbar from "../../navbar/Navbar";
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteIcon from '@mui/icons-material/Delete';
