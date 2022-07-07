@@ -2,15 +2,12 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import {Select, SelectChangeEvent} from "@mui/material";
-import {useAppSelector} from "../../../../store/store";
 
 type SelectorType  = {
     onChangePageCount: (perPage: number)=>void
     value: number
 }
 export const Selector = (props: SelectorType) => {
-
-    const pageCount = useAppSelector(state => state.packs.pageCount)
 
     const handleChange = (event: SelectChangeEvent) => {
         props.onChangePageCount(+event.target.value)
@@ -20,7 +17,7 @@ export const Selector = (props: SelectorType) => {
         <FormControl sx={{m: 1, minWidth: 50}} size="small">
             <Select
                 value={String(props.value)}
-                defaultValue={String(pageCount)}
+                defaultValue={String(props.value)}
                 onChange={handleChange}
                 displayEmpty
                 style={{backgroundColor: 'white', height: '35px'}}

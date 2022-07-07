@@ -40,7 +40,6 @@ export const Packs = () => {
         getPacksTC()
     }, [])
 
-
     const myPacksHandler = () => {
         dispatch(saveUserIdAC(user_id))
         dispatch(getPacksTC({

@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
     newPassword: newPasswordReducer,
     profile: profileReducer,
     packs: packsReducer
+    // cards: cardsReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
