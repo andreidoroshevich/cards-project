@@ -103,7 +103,7 @@ export const Packs = () => {
     }
 
     const onSortPacks = () => {
-        dispatch(getPacksTC({user_id: userId, sortPacks: `${Number(!sortDirection)}` + `updated`}))
+        dispatch(getPacksTC({user_id: userId, sortPacks: `${Number(!sortDirection)}` + `updated`, page, pageCount}))
         setSortDirection(!sortDirection)
     }
 
