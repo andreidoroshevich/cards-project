@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import {useAppSelector} from "../../../../store/store";
 
 
 type PaginatorPropsType = {
@@ -11,8 +10,6 @@ type PaginatorPropsType = {
 
 export const Paginator = (props: PaginatorPropsType) => {
 
-    const page = useAppSelector(state => state.packs.page)
-
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         props.onPageChange(value)
     };
@@ -21,6 +18,7 @@ export const Paginator = (props: PaginatorPropsType) => {
         <Stack spacing={10}>
             <Pagination
                 count={10}
+                // page={currentPage}
                 defaultPage={1}
                 color="primary"
                 onChange={handleChange}/>

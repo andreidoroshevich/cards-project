@@ -17,7 +17,7 @@ type SearchType = {
 
 export const SearchAppBar = (props: SearchType) => {
     const dispatch = useAppDispatch()
-    const createPackHandler = () => (dispatch(createPackTC()))
+    const createPackHandler = () => {dispatch(createPackTC())}
 
     const [value, setValue] = useState<string>('')
     const debouncedValue = useDebounce<string>(value, 1000)

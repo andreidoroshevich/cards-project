@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import styles from './Packs.module.css'
 import {Button, IconButton} from '@mui/material';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {deletePackTC, getPacksTC, savePageAC, updatePackTC} from "../../../reducers/packsReducer";
+import {deletePackTC, getPacksTC, savePageAC, saveUserIdAC, updatePackTC} from "../../../reducers/packsReducer";
 import {RangeSlider} from "../../common/pages/slider/RangeSlider";
 import {SearchAppBar} from "../searchBar/SearchBar";
 import {Paginator} from "../../common/pages/pagination/Paginator";
@@ -26,63 +26,97 @@ export const Packs = () => {
     const [isActive, setIsActive] = useState(true)
     const [sortDirection, setSortDirection] = useState(false)
 
-
     const dispatch = useAppDispatch()
     const packs = useAppSelector(state => state.packs.cardPacks)
     const page = useAppSelector(state => state.packs.page)
     const pageCount = useAppSelector(state => state.packs.pageCount)
     const user_id = useAppSelector(state => state.profile.userId)
     const loginUserId = useAppSelector(state => state.login.loginUserId)
-
-
-    const getPacks = () => {
-        if (!page) {
-            return dispatch(getPacksTC())
-        }
-        return dispatch(getPacksTC({page}))
-    }
+    const userId = useAppSelector(state => state.packs.userId)
+    const min = useAppSelector(state => state.packs.min)
+    const max = useAppSelector(state => state.packs.max)
 
     useEffect(() => {
-        getPacks()
+        getPacksTC()
     }, [])
 
 
     const myPacksHandler = () => {
-        if (user_id) {
-            dispatch(getPacksTC({user_id, pageCount}))
-            setIsActive(!isActive)
-        } else {
-            dispatch(getPacksTC({user_id: loginUserId, pageCount}))
-            setIsActive(!isActive)
-        }
-    }
-
-    const allPacksHandler = () => {
-        dispatch(getPacksTC({pageCount}))
+        dispatch(saveUserIdAC(user_id))
+        dispatch(getPacksTC({
+            user_id: user_id,
+            page,
+            pageCount,
+            sortPacks: `${Number(sortDirection)}` + `updated`,
+            min,
+            max
+        }))
         setIsActive(!isActive)
     }
 
+    const allPacksHandler = () => {
+        dispatch(getPacksTC({
+            user_id: '',
+            page,
+            pageCount,
+            sortPacks: `${Number(sortDirection)}` + `updated`,
+            min,
+            max
+        }))
+        setIsActive(!isActive)
+        dispatch(saveUserIdAC(''))
+
+    }
 
     const onPageChange = (page: number) => {
         dispatch(savePageAC(page))
-        dispatch(getPacksTC({page, pageCount}))
+        dispatch(getPacksTC({
+            user_id: userId,
+            page,
+            pageCount,
+            sortPacks: `${Number(sortDirection)}` + `updated`,
+            min,
+            max
+        }))
     }
 
     const onChangePageCount = (pageCount: number) => {
-        dispatch(getPacksTC({page, pageCount}))
+        dispatch(getPacksTC({
+            user_id: userId,
+            page,
+            pageCount,
+            sortPacks: `${Number(sortDirection)}` + `updated`,
+            min,
+            max
+        }))
     }
 
     const onSearchPacks = (packName: string) => {
-        dispatch(getPacksTC({packName, page, pageCount}))
+        dispatch(getPacksTC({
+            user_id: userId,
+            packName,
+            page,
+            pageCount,
+            sortPacks: `${Number(sortDirection)}` + `updated`,
+            min,
+            max
+        }))
     }
 
     const onSortPacks = () => {
-        dispatch(getPacksTC({sortPacks: `${Number(sortDirection)}` + `updated`}))
+        dispatch(getPacksTC({user_id: userId, sortPacks: `${Number(!sortDirection)}` + `updated`}))
         setSortDirection(!sortDirection)
     }
 
     const sliderHandler = (min: number, max: number) => {
-        dispatch(getPacksTC({min, max}))
+        dispatch(getPacksTC({
+            user_id: userId,
+            page,
+            pageCount,
+            sortPacks: `${Number(sortDirection)}` + `updated`,
+            min,
+            max
+        }))
     }
 
 
@@ -128,11 +162,13 @@ export const Packs = () => {
                                         count</b></TableCell>
 
                                     <TableCell className={styles.headerSortText}
-                                               align={'center'}>Updated
-
-                                        <IconButton onClick={onSortPacks} aria-label="arrow" size="small">
-                                            <UnfoldMoreIcon fontSize="inherit"/>
-                                        </IconButton>
+                                               align={'center'}>
+                                        <div className={styles.headerSortText}><b>Updated</b>
+                                            <div><IconButton onClick={onSortPacks} aria-label="arrow" size="small">
+                                                <UnfoldMoreIcon fontSize="inherit"/>
+                                            </IconButton>
+                                            </div>
+                                        </div>
 
                                     </TableCell>
                                     <TableCell onClick={onSortPacks} className={styles.headerTextActive}
@@ -155,30 +191,39 @@ export const Packs = () => {
                                             {`${(p.updated).slice(8, 10)}.${(p.updated).slice(5, 7)}.${(p.updated).slice(0, 4)}`}
                                         </TableCell>
                                         <TableCell className={styles.tableText}>{p.user_name}</TableCell>
-
-
                                         {(p.user_id === user_id || p.user_id === loginUserId) ?
                                             <TableCell className={styles.tableText} align={'center'}>
                                                 <div className={styles.iconBlock}>
                                                     <IconButton aria-label="school" size="small">
                                                         <SchoolIcon fontSize="inherit"/>
                                                     </IconButton>
-
-                                                    <IconButton onClick={() => (dispatch(deletePackTC(p._id)))}
+                                                    <IconButton onClick={() => (dispatch(deletePackTC(p._id, {
+                                                        user_id: userId,
+                                                        page,
+                                                        pageCount,
+                                                        sortPacks: `${Number(sortDirection)}` + `updated`,
+                                                        min,
+                                                        max
+                                                    })))}
                                                                 aria-label="delete" size="small">
                                                         <DeleteIcon fontSize="inherit"/>
                                                     </IconButton>
-
                                                     <IconButton onClick={() => {
-                                                        dispatch(updatePackTC({_id: p._id, name: "Pack name changed"}))
+                                                        dispatch(updatePackTC({_id: p._id, name: "Pack name changed"}, {
+                                                            user_id: userId,
+                                                            page,
+                                                            pageCount,
+                                                            sortPacks: `${Number(sortDirection)}` + `updated`,
+                                                            min,
+                                                            max
+                                                        }))
                                                     }}
                                                                 aria-label="delete" size="small">
                                                         <EditIcon fontSize="inherit"/>
                                                     </IconButton>
                                                 </div>
                                             </TableCell>
-                                            :
-                                            <TableCell className={styles.tableText} align={'left'}>
+                                            : <TableCell className={styles.tableText} align={'left'}>
                                                 <div className={styles.iconBlock1}>
                                                     <IconButton aria-label="school" size="small">
                                                         <SchoolIcon fontSize="inherit"/>
