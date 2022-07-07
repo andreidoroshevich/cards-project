@@ -16,8 +16,8 @@ export type ProfileResponseType = {
     name: string;
     avatar?: string;
     publicCardPacksCount: number;
-    created: Date;
-    updated: Date;
+    created: string;
+    updated: string;
     isAdmin: boolean;
     verified: boolean;
     rememberMe: boolean;

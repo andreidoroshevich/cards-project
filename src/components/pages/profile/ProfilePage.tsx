@@ -5,7 +5,7 @@ import Navbar from "../../navbar/Navbar";
 import EditableSpan from "../../common/pages/EditableSpan";
 import {updateUserNameTC} from "../../../reducers/profileReducer";
 import {changeNameType} from "../../../api/loginAPI";
-import Avatar from "../../../assets/avatar.jpg"
+import Avatar from "../../../assets/images/avatar.jpg"
 
 const ProfilePage = () => {
 

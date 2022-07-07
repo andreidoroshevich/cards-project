@@ -4,7 +4,7 @@ import {Link, useParams} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import emailImg from "../../../assets/email.png"
+import emailImg from "../../../assets/images/email.png"
 
 
 const CheckEmail = () => {
