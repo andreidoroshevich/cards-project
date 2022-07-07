@@ -25,7 +25,7 @@ export const profileReducer = (state: InitialStateType = initialState, action:
             return {...state, profile: action.profile}
         case 'APP-UPDATE-USER-NAME':
             return {...state, profile: {...state.profile, name: action.newName}}
-        case 'packs/SAVE-USER-ID':
+        case 'profile/SAVE-USER-ID':
             return {...state, userId: action.userId}
 
         default:
@@ -70,7 +70,7 @@ export const updateUserNameAC = (newName: string) => {
 
 export const saveUserIdAC = (userId: string) => {
     return {
-        type: 'packs/SAVE-USER-ID',
+        type: 'profile/SAVE-USER-ID',
         userId
     } as const
 }

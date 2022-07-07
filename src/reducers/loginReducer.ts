@@ -12,10 +12,10 @@ export type InitialStateType = typeof initialState
 
 export const loginReducer = (state: InitialStateType = initialState, action: LoginActionsType): InitialStateType => {
     switch (action.type) {
-        case "LOGIN/SET-IS-LOGGED-IN": {
+        case "login/SET-IS-LOGGED-IN": {
             return {...state, isLoggedIn: action.value}
         }
-        case 'packs/SAVE-USER-ID':
+        case 'login/SAVE-USER-ID':
             return {...state, loginUserId: action.userId}
 
         default:
@@ -50,8 +50,8 @@ export const logoutTC = (): AppThunk => (dispatch) => {
         })
 }
 
-export const saveUserIdAC = (userId: string) => ({type: 'packs/SAVE-USER-ID', userId} as const)
-export const setIsLoggedInAC = (value: boolean) => ({type: 'LOGIN/SET-IS-LOGGED-IN', value} as const)
+export const saveUserIdAC = (userId: string) => ({type: 'login/SAVE-USER-ID', userId} as const)
+export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET-IS-LOGGED-IN', value} as const)
 
 
 export type LoginActionsType = ReturnType<typeof setIsLoggedInAC>

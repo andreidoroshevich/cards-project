@@ -14,7 +14,7 @@
     background-color: #a9cbef;
 }
 
-.actionIcon{
+.actionIcon {
     width: 15px;
     height: 15px;
 }
@@ -58,7 +58,7 @@
     justify-content: space-between;
 }
 
-.mainTable{
+.mainTable {
     width: 60vw;
     display: flex;
     flex-direction: column;
@@ -73,13 +73,16 @@
 
 .headerText {
     font-weight: bolder;
-    width: 10vh;
+    width: 15vh;
 }
 
 .headerSortText {
     font-weight: bolder;
+    display: flex;
     width: 10vh;
     cursor: pointer;
+   margin-left: auto;
+    margin-right: auto
 }
 
 .tableText {

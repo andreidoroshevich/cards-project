@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {useDebounce} from "usehooks-ts";
 import {useEffect} from "react";
+import {useAppDispatch} from "../../../../store/store";
+import {saveMaxAC, saveMinAC} from "../../../../reducers/packsReducer";
 
 function valuetext(value: number) {
     return `${value}`;
@@ -15,6 +17,7 @@ type SliderPropsType = {
 }
 
 export const RangeSlider = (props: SliderPropsType) => {
+    const dispatch=useAppDispatch()
     const [value, setValue] = React.useState<number[]>([0, 100]);
     const debouncedValue = useDebounce<number[]>(value, 1000)
     const handleChange = (
@@ -36,6 +39,8 @@ export const RangeSlider = (props: SliderPropsType) => {
 
     useEffect(() => {
         props.sliderHandler(value[0], value[1])
+        dispatch(saveMinAC(value[0]))
+        dispatch(saveMaxAC(value[1]))
     }, [debouncedValue])
 
     return (
