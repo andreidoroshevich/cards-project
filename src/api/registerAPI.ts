@@ -1,4 +1,4 @@
-import {instance} from "./loginAPI";
+import {instance} from "./Instance";
 
 
 export type RegisterRequestDataType = {

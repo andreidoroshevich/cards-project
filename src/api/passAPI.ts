@@ -1,4 +1,4 @@
-import {instance} from "./loginAPI";
+import {instance} from "./Instance";
 
 type PassResponseType = {
 	info: string
@@ -21,12 +21,11 @@ type NewPasswordResponseType = {
 	error: string
 }
 
-
 export const passAPI = {
 	sendEmail(data: EmailRequestType) {
 		return instance.post<PassResponseType>('/auth/forgot', data)
 	},
-	newPass(data: { resetPasswordToken: string | undefined; password: any }) {
+	newPass(data: NewPasswordType) {
 		return instance.post<NewPasswordResponseType>('/auth/set-new-password', data)
 	}
 }

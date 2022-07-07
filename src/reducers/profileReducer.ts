@@ -1,14 +1,14 @@
 import {AuthAPI, changeNameType, ProfileResponseType} from "../api/loginAPI";
 import {setIsLoggedInAC} from "./loginReducer";
 import {AppThunk} from "../store/store";
-import {AxiosError} from "axios";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {
     status: 'loading' as RequestStatusType,
     error: null as string | null,
     isInitialized: false,
-    profile: {} as ProfileResponseType
+    profile: {} as ProfileResponseType,
+    userId: '',
 }
 type InitialStateType = typeof initialState
 
@@ -25,6 +25,9 @@ export const profileReducer = (state: InitialStateType = initialState, action:
             return {...state, profile: action.profile}
         case 'APP-UPDATE-USER-NAME':
             return {...state, profile: {...state.profile, name: action.newName}}
+        case 'packs/SAVE-USER-ID':
+            return {...state, userId: action.userId}
+
         default:
             return state
     }
@@ -65,16 +68,21 @@ export const updateUserNameAC = (newName: string) => {
     } as const
 }
 
+export const saveUserIdAC = (userId: string) => {
+    return {
+        type: 'packs/SAVE-USER-ID',
+        userId
+    } as const
+}
+
 export const initializeAppTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.me().then((res) => {
         dispatch(setIsLoggedInAC(true))
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(saveUserIdAC(res._id))
         dispatch(setProfileAC(res))
     })
-        .catch((error: AxiosError) => {
-            console.log()
-        })
         .finally(() => {
             dispatch(setAppIsInitializedAC(true))
             dispatch(setAppStatusAC('succeeded'))
@@ -101,9 +109,12 @@ export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type setAppIsInitializedType = ReturnType<typeof setAppIsInitializedAC>
 export type updateUserNameType = ReturnType<typeof updateUserNameAC>
 export type setProfileType = ReturnType<typeof setProfileAC>
+export type saveUserIdACType = ReturnType<typeof saveUserIdAC>
+
 
 export type AuthActionsType = SetAppActionType
     | SetAppErrorActionType
     | setAppIsInitializedType
     | setProfileType
     | updateUserNameType
+    | saveUserIdACType

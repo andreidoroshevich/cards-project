@@ -40,9 +40,6 @@ const RegisterPage = () => {
             formik.resetForm()
         },
     })
-
-
-
     const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
         password: '',
         showPassword: true,

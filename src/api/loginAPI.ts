@@ -1,11 +1,4 @@
-import axios from "axios";
-
-
-export const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true,
-})
-
+import {instance} from "./Instance";
 
 export type LoginParamsType = {
     email: string
@@ -23,8 +16,8 @@ export type ProfileResponseType = {
     name: string;
     avatar?: string;
     publicCardPacksCount: number;
-    created: Date;
-    updated: Date;
+    created: string;
+    updated: string;
     isAdmin: boolean;
     verified: boolean;
     rememberMe: boolean;

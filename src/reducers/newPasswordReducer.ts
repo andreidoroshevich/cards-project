@@ -1,5 +1,4 @@
 import {AppThunk} from "../store/store";
-import {Dispatch} from "redux";
 import {setAppErrorAC, setAppStatusAC} from "./profileReducer";
 import {NewPasswordType, passAPI} from "../api/passAPI";
 
@@ -27,7 +26,7 @@ export const passChangeAC = (info: string, isPassChanged: boolean) => {
 	return {type: 'NEW_PASSWORD', info, isPassChanged} as const
 }
 
-export const newPassTC = (data: NewPasswordType): AppThunk => (dispatch: Dispatch) => {
+export const newPassTC = (data: NewPasswordType): AppThunk => (dispatch) => {
 	dispatch(setAppStatusAC('loading'))
 	passAPI.newPass(data)
 		.then(res => {

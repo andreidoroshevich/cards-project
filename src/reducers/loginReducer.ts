@@ -5,41 +5,34 @@ import {AppThunk} from "../store/store";
 
 const initialState = {
     isLoggedIn: false,
+    loginUserId: '',
 }
 
 export type InitialStateType = typeof initialState
 
-export const loginReducer = (state:InitialStateType = initialState, action: LoginActionsType): InitialStateType => {
+export const loginReducer = (state: InitialStateType = initialState, action: LoginActionsType): InitialStateType => {
     switch (action.type) {
         case "LOGIN/SET-IS-LOGGED-IN": {
             return {...state, isLoggedIn: action.value}
         }
+        case 'packs/SAVE-USER-ID':
+            return {...state, loginUserId: action.userId}
+
         default:
             return state
     }
 }
-
-export const setIsLoggedInAC = (value: boolean) => {
-    return {
-        type: 'LOGIN/SET-IS-LOGGED-IN',
-        value
-    } as const
-}
-
-
-type SetIsLoggedInType = ReturnType<typeof setIsLoggedInAC>
-
-export type LoginActionsType = SetIsLoggedInType
 
 export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.login(data)
         .then((res) => {
             dispatch(setIsLoggedInAC(true))
-            dispatch(setProfileAC(res))//в стэйт сохраняю профиль чтоб отрисовать
+            dispatch(saveUserIdAC(res._id))
+            dispatch(setProfileAC(res))
         })
         .catch((e) => {
-            handleServerNetworkError(dispatch, e.response.data.error)//если не верный пароли или логин
+            handleServerNetworkError(dispatch, e.message)
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
@@ -50,9 +43,16 @@ export const logoutTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     AuthAPI.logout()
         .then(() => {
-                dispatch(setIsLoggedInAC(false))
+            dispatch(setIsLoggedInAC(false))
         })
         .finally(() => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
+
+export const saveUserIdAC = (userId: string) => ({type: 'packs/SAVE-USER-ID', userId} as const)
+export const setIsLoggedInAC = (value: boolean) => ({type: 'LOGIN/SET-IS-LOGGED-IN', value} as const)
+
+
+export type LoginActionsType = ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof saveUserIdAC>
