@@ -19,9 +19,9 @@ export const PATH = {
     PROFILE_PAGE: '/profile-page',
     REGISTER_PAGE: '/register-page',
     CHECK_EMAIL_PAGE: '/check-email-page/:email',
-    TEST_PAGE: '/test-Page',
-    CARDS_PAGE: '/cards-Page',
-    PACKS_PAGE: '/packs-Page',
+    TEST_PAGE: '/test-page',
+    CARDS_PAGE: '/cards-page/:packid/:packname',
+    PACKS_PAGE: '/packs-page',
 }
 
 const Pages = () => {
