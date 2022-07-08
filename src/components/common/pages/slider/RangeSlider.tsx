@@ -19,7 +19,6 @@ type SliderPropsType = {
 export const RangeSlider = (props: SliderPropsType) => {
 
     const maxCardsInPacks = useAppSelector(state=>state.packs.maxCardsCount)
-    console.log(maxCardsInPacks)
     const dispatch=useAppDispatch()
     const [value, setValue] = React.useState<number[]>([0, maxCardsInPacks]);
     const debouncedValue = useDebounce<number[]>(value, 1000)

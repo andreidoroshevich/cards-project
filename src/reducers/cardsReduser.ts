@@ -47,7 +47,6 @@ export const getCardsTC = (data: CardsGetType): AppThunk => async (dispatch) => 
 	dispatch(setAppStatusAC('loading'))
 	try {
 		const res = await cardsAPI.getCards(data)
-		console.log(res)
 		dispatch(getCardsAC(res.data.cards))
 		dispatch(pageCardsAC(res.data.page))
 		dispatch(pageCountCardsAC(res.data.pageCount))
