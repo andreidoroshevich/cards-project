@@ -131,7 +131,7 @@ export const Packs = () => {
 		dispatch(createPackTC({ name: "My new pack"}))
 	}
 
-	const learnHandler = (packId:string,packName:string)=>{
+	const goToCardHandler = (packId:string,packName:string)=>{
 		navigate(`/cards-page/${packId}/${packName}`)
 	}
 
@@ -198,7 +198,7 @@ export const Packs = () => {
 									<TableRow
 										key={p._id}
 										sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-										<TableCell className={styles.tableText} component="th" scope="row">
+										<TableCell onClick={()=>goToCardHandler(p._id,p.name)} className={styles.tableTextLink} component="th" scope="row">
 											{p.name}
 										</TableCell>
 										<TableCell className={styles.tableText}
@@ -212,9 +212,8 @@ export const Packs = () => {
 											<TableCell className={styles.tableText} align={'center'}>
 												<div className={styles.iconBlock}>
 
-													<IconButton aria-label="school" size="small"
-													            onClick={()=>learnHandler(p._id,p.name)}
-													>
+													<IconButton aria-label="school" size="small">
+
 														<SchoolIcon fontSize="inherit"/>
 													</IconButton>
 
@@ -246,8 +245,7 @@ export const Packs = () => {
 											</TableCell>
 											: <TableCell className={styles.tableText} align={'left'}>
 												<div className={styles.iconBlock1}>
-													<IconButton aria-label="school" size="small"
-													            onClick={()=>learnHandler(p._id,p.name)}>
+													<IconButton aria-label="school" size="small">
 														<SchoolIcon fontSize="inherit"/>
 													</IconButton>
 												</div>

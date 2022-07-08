@@ -39,7 +39,7 @@ export type UpdatePackRequestData = {
     name?: string
 }
 
-export type fetchDataType = {
+export type FetchDataType = {
     page?: number
     pageCount?: number
     user_id?: string
@@ -50,7 +50,7 @@ export type fetchDataType = {
 }
 
 export const packsAPI = {
-    getPacks: (data?: fetchDataType) => {
+    getPacks: (data?: FetchDataType) => {
         return instance.get<GetPacksResponseType>('cards/pack', {
             params:
                 {

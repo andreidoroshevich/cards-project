@@ -1,6 +1,6 @@
 import {AppThunk} from '../store/store';
 import {setAppStatusAC} from "./profileReducer";
-import {CreatePackRequestData, fetchDataType, packsAPI, PackType, UpdatePackRequestData} from "../api/packsAPI";
+import {CreatePackRequestData, FetchDataType, packsAPI, PackType, UpdatePackRequestData} from "../api/packsAPI";
 import {AxiosError} from "axios";
 import {handleServerNetworkError} from "../utils/error-utils";
 
@@ -34,7 +34,7 @@ const initialState = {
     maxCardsCount: 110,
     token: "",
     tokenDeathTime: 0,
-    min:0,
+    min: 0,
     max: 110,
     userId: '',
 }
@@ -49,17 +49,16 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, page: action.page}
         case 'packs/SAVE-MIN-SLIDER-VALUE':
             return {...state, min: action.min}
-                case 'packs/SAVE-MAX-SLIDER-VALUE':
+        case 'packs/SAVE-MAX-SLIDER-VALUE':
             return {...state, max: action.max}
         case 'packs/SAVE-USER-ID':
             return {...state, userId: action.userId}
-
         default:
             return state
     }
 }
 
-export const getPacksTC = (data?: fetchDataType): AppThunk => async (dispatch) => {
+export const getPacksTC = (data?: FetchDataType): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await packsAPI.getPacks(data)
@@ -73,7 +72,7 @@ export const getPacksTC = (data?: fetchDataType): AppThunk => async (dispatch) =
     }
 }
 
-export const createPackTC = (data: CreatePackRequestData, getData?:fetchDataType): AppThunk => async (dispatch) => {
+export const createPackTC = (data: CreatePackRequestData, getData?: FetchDataType): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await packsAPI.createPack(data)
@@ -85,7 +84,7 @@ export const createPackTC = (data: CreatePackRequestData, getData?:fetchDataType
     }
 }
 
-export const deletePackTC = (packId: string, getData?:fetchDataType): AppThunk => async (dispatch) => {
+export const deletePackTC = (packId: string, getData?: FetchDataType): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await packsAPI.deletePack(packId)
@@ -97,7 +96,7 @@ export const deletePackTC = (packId: string, getData?:fetchDataType): AppThunk =
     }
 }
 
-export const updatePackTC = (data: UpdatePackRequestData, getData?:fetchDataType): AppThunk => async (dispatch) => {
+export const updatePackTC = (data: UpdatePackRequestData, getData?: FetchDataType): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await packsAPI.updatePack(data)
