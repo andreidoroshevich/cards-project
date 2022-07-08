@@ -4,8 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import {Button} from '@mui/material';
-import {createPackTC} from "../../../reducers/packsReducer";
-import {useAppDispatch} from "../../../store/store";
 import {useDebounce} from "usehooks-ts";
 import {Search} from "../../common/pages/searchBar/searchBarComponents/SearchField";
 import {StyledInputBase} from "../../common/pages/searchBar/searchBarComponents/StyledInputBase";
@@ -13,11 +11,11 @@ import {SearchIcon} from '../../common/pages/searchBar/searchBarComponents/Searc
 
 type SearchType = {
     onSearchPacks: (packName: string) => void
+    nameBtn: string
+    callbackBtn: () => void
 }
 
 export const SearchAppBar = (props: SearchType) => {
-    const dispatch = useAppDispatch()
-    const createPackHandler = () => {dispatch(createPackTC())}
 
     const [value, setValue] = useState<string>('')
     const debouncedValue = useDebounce<string>(value, 1000)
@@ -48,8 +46,9 @@ export const SearchAppBar = (props: SearchType) => {
                         </Search>
                     </div>
                     <div>
-                        <Button variant="contained" color="primary" onClick={createPackHandler}>
-                            Add new pack
+                        <Button variant="contained" color="primary"
+                                onClick={props.callbackBtn}>
+                            {props.nameBtn}
                         </Button>
                     </div>
                 </Toolbar>

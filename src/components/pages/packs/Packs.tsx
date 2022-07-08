@@ -10,7 +10,14 @@ import Paper from '@mui/material/Paper';
 import styles from './Packs.module.css'
 import {Button, IconButton} from '@mui/material';
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {deletePackTC, getPacksTC, savePageAC, saveUserIdAC, updatePackTC} from "../../../reducers/packsReducer";
+import {
+    createPackTC,
+    deletePackTC,
+    getPacksTC,
+    savePageAC,
+    saveUserIdAC,
+    updatePackTC
+} from "../../../reducers/packsReducer";
 import {RangeSlider} from "../../common/pages/slider/RangeSlider";
 import {SearchAppBar} from "../searchBar/SearchBar";
 import {Paginator} from "../../common/pages/pagination/Paginator";
@@ -118,6 +125,10 @@ export const Packs = () => {
         }))
     }
 
+    const createPackHandler = () => {
+        dispatch(createPackTC())
+    }
+
 
     return (
         <>
@@ -150,7 +161,8 @@ export const Packs = () => {
                 </div>
                 <div className={styles.mainTable}>
                     <h3>Packs List</h3>
-                    <SearchAppBar onSearchPacks={onSearchPacks}/>
+                    <SearchAppBar onSearchPacks={onSearchPacks}
+                                  nameBtn={'Add New Pack'} callbackBtn={createPackHandler}/>
                     <TableContainer component={Paper} className={styles.cardsTable}>
                         <Table className={styles.mainCardsTable} aria-label="simple table">
                             <TableHead>
