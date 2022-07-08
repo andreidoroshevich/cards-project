@@ -17,7 +17,6 @@ import {EMAIL_TEMPLATE} from "../../../const/CONST";
 const ForgotPasswordPage = () => {
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
-	const info = useAppSelector(state => state.forgot.info)
 
 
 	const formik = useFormik({
@@ -29,10 +28,8 @@ const ForgotPasswordPage = () => {
 		},
 		onSubmit: (values) => {
 			dispatch(recoveryPassTC({email: values.email, message: EMAIL_TEMPLATE}))
-			// if (info) {
 			navigate(`/check-email-page/${values.email}`)
 			formik.resetForm()
-			// }
 		},
 	})
 

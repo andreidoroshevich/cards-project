@@ -7,7 +7,6 @@ type PaginatorPropsType = {
     onPageChange: (page: number) => void
 }
 
-
 export const Paginator = (props: PaginatorPropsType) => {
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
