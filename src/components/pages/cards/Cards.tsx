@@ -28,16 +28,14 @@ export const Cards = React.memo(() => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
-	const {packid,packname} = useParams()
+	const {packid, packname} = useParams()
 
 	const page = useAppSelector(state => state.cards.page)
 	const pageCount = useAppSelector(state => state.cards.pageCount)
 	const cards = useAppSelector(state => state.cards.cards)
-	console.log(pageCount)
-	console.log(page)
 
 	useEffect(() => {
-		if (packid){
+		if (packid) {
 			dispatch(getCardsTC({cardsPack_id: packid}))
 		}
 	}, [])
@@ -49,19 +47,19 @@ export const Cards = React.memo(() => {
 	const valueRating = 4
 
 	const handlerAddBtn = () => {
-		if(packid){
+		if (packid) {
 			dispatch(addCardTC({cardsPack_id: packid}))
 		}
 	}
 
 	const handlerDeleteCard = (cardId: string) => {
-		if(packid){
+		if (packid) {
 			dispatch(deleteCardTC(packid, cardId))
 		}
 	}
 
 	const handlerUpdateCard = (cardId: string) => {
-		if(packid){
+		if (packid) {
 			dispatch(updateCardTC({_id: cardId, question: 'update name card'}, packid))
 		}
 	}
@@ -71,7 +69,7 @@ export const Cards = React.memo(() => {
 	const handleSortByUpdate = () => {
 		let sortUpdateStr
 		sortUpdate ? sortUpdateStr = '0updated' : sortUpdateStr = '1updated'
-		if (packid){
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid,
 				sortCards: sortUpdateStr,
@@ -83,7 +81,7 @@ export const Cards = React.memo(() => {
 	}
 
 	const onPageChange = (page: number) => {
-		if(packid){
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid,
 				page,
@@ -94,7 +92,7 @@ export const Cards = React.memo(() => {
 	}
 
 	const onChangePageCount = (pageCount: number) => {
-		if(packid){
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid,
 				page,
@@ -105,7 +103,7 @@ export const Cards = React.memo(() => {
 	}
 
 	const onSearchPacks = (cardQuestion: string) => {
-		if(packid){
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid,
 				cardQuestion,
@@ -166,7 +164,7 @@ export const Cards = React.memo(() => {
 									<TableCell align="right">
 										<Rating name="read-only" value={valueRating} size={"small"} readOnly/>
 									</TableCell>
-									{/*{(card.user_id === user_id || card.user_id === loginUserId) ?*/}
+
 									<TableCell align="right">
 
 										<IconButton onClick={() => handlerDeleteCard(card._id)}
@@ -178,8 +176,8 @@ export const Cards = React.memo(() => {
 										            aria-label="edit" size="small">
 											<EditIcon fontSize="inherit"/>
 										</IconButton>
-
 									</TableCell>
+
 								</TableRow>
 							))}
 						</TableBody>

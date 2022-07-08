@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import {useDebounce} from "usehooks-ts";
 import {useEffect} from "react";
-import {useAppDispatch} from "../../../../store/store";
+import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import {saveMaxAC, saveMinAC} from "../../../../reducers/packsReducer";
 
 function valuetext(value: number) {
@@ -17,8 +17,11 @@ type SliderPropsType = {
 }
 
 export const RangeSlider = (props: SliderPropsType) => {
+
+    const maxCardsInPacks = useAppSelector(state=>state.packs.maxCardsCount)
+    console.log(maxCardsInPacks)
     const dispatch=useAppDispatch()
-    const [value, setValue] = React.useState<number[]>([0, 100]);
+    const [value, setValue] = React.useState<number[]>([0, maxCardsInPacks]);
     const debouncedValue = useDebounce<number[]>(value, 1000)
     const handleChange = (
         event: Event,
@@ -53,6 +56,8 @@ export const RangeSlider = (props: SliderPropsType) => {
                 valueLabelDisplay="on"
                 getAriaValueText={valuetext}
                 style={{'width': '90%'}}
+                marks
+                max={maxCardsInPacks}
                 disableSwap
             />
         </Box>
