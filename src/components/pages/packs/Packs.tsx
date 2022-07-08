@@ -47,7 +47,7 @@ export const Packs = () => {
 	const max = useAppSelector(state => state.packs.max)
 
 	useEffect(() => {
-		getPacksTC()
+		dispatch(getPacksTC())
 	}, [])
 
 	const myPacksHandler = () => {
@@ -56,7 +56,7 @@ export const Packs = () => {
 			user_id: user_id,
 			page,
 			pageCount,
-			sortPacks: `${Number(sortDirection)}` + `updated`,
+			sortPacks: `${Number(sortDirection)}updated`,
 			min,
 			max
 		}))
@@ -68,13 +68,12 @@ export const Packs = () => {
 			user_id: '',
 			page,
 			pageCount,
-			sortPacks: `${Number(sortDirection)}` + `updated`,
+			sortPacks: `${Number(sortDirection)}updated`,
 			min,
 			max
 		}))
 		setIsActive(!isActive)
 		dispatch(saveUserIdAC(''))
-
 	}
 
 	const onPageChange = (page: number) => {
@@ -83,7 +82,7 @@ export const Packs = () => {
 			user_id: userId,
 			page,
 			pageCount,
-			sortPacks: `${Number(sortDirection)}` + `updated`,
+			sortPacks: `${Number(sortDirection)}updated`,
 			min,
 			max
 		}))
@@ -94,7 +93,7 @@ export const Packs = () => {
 			user_id: userId,
 			page,
 			pageCount,
-			sortPacks: `${Number(sortDirection)}` + `updated`,
+			sortPacks: `${Number(sortDirection)}updated`,
 			min,
 			max
 		}))
@@ -106,14 +105,14 @@ export const Packs = () => {
 			packName,
 			page,
 			pageCount,
-			sortPacks: `${Number(sortDirection)}` + `updated`,
+			sortPacks: `${Number(sortDirection)}updated`,
 			min,
 			max
 		}))
 	}
 
 	const onSortPacks = () => {
-		dispatch(getPacksTC({user_id: userId, sortPacks: `${Number(!sortDirection)}` + `updated`, page, pageCount}))
+		dispatch(getPacksTC({user_id: userId, sortPacks: `${Number(!sortDirection)}updated`, page, pageCount}))
 		setSortDirection(!sortDirection)
 	}
 
@@ -122,14 +121,14 @@ export const Packs = () => {
 			user_id: userId,
 			page,
 			pageCount,
-			sortPacks: `${Number(sortDirection)}` + `updated`,
+			sortPacks: `${Number(sortDirection)}updated`,
 			min,
 			max
 		}))
 	}
 
 	const createPackHandler = () => {
-		dispatch(createPackTC())
+		dispatch(createPackTC({ name: "My new pack"}))
 	}
 
 	const learnHandler = (packId:string,packName:string)=>{
@@ -223,7 +222,7 @@ export const Packs = () => {
 														user_id: userId,
 														page,
 														pageCount,
-														sortPacks: `${Number(sortDirection)}` + `updated`,
+														sortPacks: `${Number(sortDirection)}updated`,
 														min,
 														max
 													})))}
@@ -235,7 +234,7 @@ export const Packs = () => {
 															user_id: userId,
 															page,
 															pageCount,
-															sortPacks: `${Number(sortDirection)}` + `updated`,
+															sortPacks: `${Number(sortDirection)}updated`,
 															min,
 															max
 														}))

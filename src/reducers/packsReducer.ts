@@ -31,12 +31,12 @@ const initialState = {
     pageCount: 10,
     cardPacksTotalCount: 5000,
     minCardsCount: 0,
-    maxCardsCount: 150,
+    maxCardsCount: 110,
     token: "",
     tokenDeathTime: 0,
     min:0,
-    max: 100,
-    userId: ''
+    max: 110,
+    userId: '',
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -73,7 +73,7 @@ export const getPacksTC = (data?: fetchDataType): AppThunk => async (dispatch) =
     }
 }
 
-export const createPackTC = (data?: CreatePackRequestData, getData?:fetchDataType): AppThunk => async (dispatch) => {
+export const createPackTC = (data: CreatePackRequestData, getData?:fetchDataType): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await packsAPI.createPack(data)

@@ -25,7 +25,9 @@ export const SearchAppBar = (props: SearchType) => {
 	}
 
 	useEffect(() => {
-		props.onSearchPacks(debouncedValue)
+		if(debouncedValue) {
+			props.onSearchPacks(debouncedValue)
+		}
 	}, [debouncedValue])
 
 	return (

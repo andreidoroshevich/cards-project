@@ -63,9 +63,8 @@ export const packsAPI = {
             })
     },
 
-    createPack(data?: CreatePackRequestData) {
+    createPack(data: CreatePackRequestData) {
         return instance.post('cards/pack', {cardsPack: {
-                name: "My new pack",
                 ...data
             }})
             .then((res) => {

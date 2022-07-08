@@ -6,7 +6,9 @@ type ActionType = ReturnType<typeof getCardsAC> |
 	ReturnType<typeof pageCardsAC> |
 	ReturnType<typeof pageCountCardsAC>
 
-const initState: CardResponseType = {
+type InitStateType = typeof initState
+
+const initState = {
 	cards: [] as CardType[],
 	cardsTotalCount: 0,
 	maxGrade: 0,
@@ -16,7 +18,7 @@ const initState: CardResponseType = {
 	packUserId: '',
 }
 
-export const cardsReducer = (state = initState, action: ActionType) => {
+export const cardsReducer = (state:InitStateType = initState, action: ActionType) => {
 	switch (action.type) {
 		case "CARDS/GET_CARDS":
 			return {...state, cards: action.cards}

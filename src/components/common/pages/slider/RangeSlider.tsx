@@ -27,6 +27,7 @@ export const RangeSlider = (props: SliderPropsType) => {
         newValue: number | number[],
         activeThumb: number,
     ) => {
+
         if (!Array.isArray(newValue)) {
             return;
         }
@@ -36,11 +37,11 @@ export const RangeSlider = (props: SliderPropsType) => {
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
         }
+        props.sliderHandler(value[0], value[1])
 
     };
 
     useEffect(() => {
-        props.sliderHandler(value[0], value[1])
         dispatch(saveMinAC(value[0]))
         dispatch(saveMaxAC(value[1]))
     }, [debouncedValue])
