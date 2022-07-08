@@ -2,7 +2,6 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import {Select, SelectChangeEvent} from "@mui/material";
-import {useAppSelector} from "../../../../store/store";
 
 type SelectorType = {
 	onChangePageCount: (perPage: number) => void
