@@ -6,7 +6,7 @@
     border-radius: 5px;
 }
 
-.affsf {
+.updated {
     font-weight: bold;
     position: relative;
     left: 30px;
@@ -45,8 +45,3 @@
     align-items: center;
 }
 
-.paginationBlock {
-    display: flex;
-    align-items: flex-start;
-    padding: 50px;
-}

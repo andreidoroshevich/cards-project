@@ -7,6 +7,7 @@ import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {profileReducer} from "../reducers/profileReducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {packsReducer} from "../reducers/packsReducer";
+import {cardsReducer} from "../reducers/cardsReduser";
 
 
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     forgot: forgotReducer,
     newPassword: newPasswordReducer,
     profile: profileReducer,
-    packs: packsReducer
+    packs: packsReducer,
+	cards: cardsReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
