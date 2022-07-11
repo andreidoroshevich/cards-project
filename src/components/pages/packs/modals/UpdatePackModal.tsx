@@ -43,15 +43,6 @@ export const UpdatePackModal = (props: UpdatePackPropsType) => {
         ))
     }
 
-
-
-
-    // const createPackHandler = () => {
-    //     dispatch(createPackTC({name, private: privatePack}))
-    //     setName('')
-    // }
-    //
-
     return (
 
         <>
