@@ -3,7 +3,6 @@ import {ChangeEvent, useEffect, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import {Button} from '@mui/material';
 import {useDebounce} from "usehooks-ts";
 import {Search} from "../../common/pages/searchBar/searchBarComponents/SearchField";
 import {StyledInputBase} from "../../common/pages/searchBar/searchBarComponents/StyledInputBase";
@@ -11,8 +10,7 @@ import {SearchIcon} from '../../common/pages/searchBar/searchBarComponents/Searc
 
 type SearchType = {
 	onSearchPacks: (packName: string) => void
-	nameBtn: string
-	callbackBtn: () => void
+	children: React.ReactNode
 }
 
 export const SearchAppBar = (props: SearchType) => {
@@ -48,10 +46,7 @@ export const SearchAppBar = (props: SearchType) => {
 						</Search>
 					</div>
 					<div>
-						<Button variant="contained" color="primary"
-						        onClick={props.callbackBtn}>
-							{props.nameBtn}
-						</Button>
+						{props.children}
 					</div>
 				</Toolbar>
 			</AppBar>
