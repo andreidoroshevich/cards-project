@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {BasicModal} from "../../../common/pages/modal/Modal";
+import {BasicModal} from "../../../common/pages/modal/BasicModal";
 import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import {createPackTC} from "../../../../reducers/packsReducer";
 import {useAppDispatch} from "../../../../store/store";
@@ -13,7 +13,7 @@ export const AddNewPackModal = () => {
 
     const dispatch = useAppDispatch()
 
-    const nameEnter = (e: ChangeEvent<HTMLInputElement>) => {
+    const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value)
     }
 
@@ -32,7 +32,7 @@ export const AddNewPackModal = () => {
         <BasicModal operationButtonName={"ADD NEW PACK"}
                     operationName={"Add New Pack"}
                     handleOperation={createPackHandler}
-                    openModalButtonName={
+                    openModalButton={
                         <Button variant="contained" color="primary">
                             Add New Pack
                         </Button>
@@ -45,7 +45,7 @@ export const AddNewPackModal = () => {
                     label="Pack Name"
                     variant="standard"
                     value={name}
-                    onChange={nameEnter}
+                    onChange={onchangeHandler}
                 />
 
                 <div className={styles.checkbox}>

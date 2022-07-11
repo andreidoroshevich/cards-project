@@ -49,7 +49,7 @@ export const Packs = () => {
     const myPacksHandler = () => {
         dispatch(saveUserIdAC(user_id))
         dispatch(getPacksTC({
-            user_id: user_id,
+            user_id: user_id || userId,
             page,
             pageCount,
             sortPacks,
@@ -136,7 +136,6 @@ export const Packs = () => {
         min,
         max
     }))
-
 
     return (
         <>

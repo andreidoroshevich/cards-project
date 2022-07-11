@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {BasicModal} from "../../../common/pages/modal/Modal";
+import {BasicModal} from "../../../common/pages/modal/BasicModal";
 import {IconButton, TextField} from "@mui/material";
 import {updatePackTC} from "../../../../reducers/packsReducer";
 import {useAppDispatch} from "../../../../store/store";
@@ -19,15 +19,13 @@ type UpdatePackPropsType = {
 
 export const UpdatePackModal = (props: UpdatePackPropsType) => {
 
-    const [newName, setNewName] = useState<string>(props.packName)
+    const [newName, setNewName] = useState(props.packName)
 
     const dispatch = useAppDispatch()
 
-    const nameEnter = (e: ChangeEvent<HTMLInputElement>) => {
+    const onchangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewName(e.currentTarget.value)
     }
-    console.log(newName)
-
 
     const UpdatePackHandler = () => {
         dispatch(updatePackTC({_id: props._id, name: newName},
@@ -48,9 +46,8 @@ export const UpdatePackModal = (props: UpdatePackPropsType) => {
         <>
             <BasicModal operationButtonName={"SAVE"}
                         operationName={"Edit Pack Name"}
-                        //@ts-ignore
                         handleOperation={UpdatePackHandler}
-                        openModalButtonName={
+                        openModalButton={
                             <IconButton
                                 aria-label="delete" size="small">
                                 <EditIcon fontSize="inherit"/>
@@ -64,7 +61,7 @@ export const UpdatePackModal = (props: UpdatePackPropsType) => {
                         label="Pack Name"
                         variant="standard"
                         value={newName}
-                        onChange={nameEnter}
+                        onChange={onchangeNameHandler}
                     />
 
                 </div>

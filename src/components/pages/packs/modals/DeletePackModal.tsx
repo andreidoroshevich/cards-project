@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {BasicModal} from "../../../common/pages/modal/Modal";
+import {BasicModal} from "../../../common/pages/modal/BasicModal";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -15,7 +15,7 @@ export const DeletePackModal: FC<DeletePackModalType> = ({handleOperation, packN
         <BasicModal operationButtonName={"Delete"}
                     operationName={"Delete Pack"}
                     handleOperation={handleOperation}
-                    openModalButtonName={<IconButton
+                    openModalButton={<IconButton
                         aria-label="delete" size="small">
                         <DeleteIcon fontSize="inherit"/>
                     </IconButton>}>
