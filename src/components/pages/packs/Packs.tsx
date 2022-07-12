@@ -34,11 +34,13 @@ export const Packs = () => {
     const packs = useAppSelector(state => state.packs.cardPacks)
     const page = useAppSelector(state => state.packs.page)
     const pageCount = useAppSelector(state => state.packs.pageCount)
+    const pageTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const user_id = useAppSelector(state => state.profile.userId)
     const loginUserId = useAppSelector(state => state.login.loginUserId)
     const userId = useAppSelector(state => state.packs.userId)
     const min = useAppSelector(state => state.packs.min)
     const max = useAppSelector(state => state.packs.max)
+
 
     const sortPacks = `${Number(sortDirection)}updated`
 
@@ -49,7 +51,7 @@ export const Packs = () => {
     const myPacksHandler = () => {
         dispatch(saveUserIdAC(user_id))
         dispatch(getPacksTC({
-            user_id: user_id || userId,
+            user_id: user_id || loginUserId,
             page,
             pageCount,
             sortPacks,
@@ -126,6 +128,10 @@ export const Packs = () => {
 
     const goToCardHandler = (packId: string, packName: string) => {
         navigate(`/cards-page/${packId}/${packName}`)
+    }
+
+    const goToLearnHandler = (packId: string, packName: string) => {
+        navigate(`/learn-page/${packId}/${packName}`)
     }
 
     const deletePackHandler = (packId: string) => dispatch(deletePackTC(packId, {
@@ -216,7 +222,7 @@ export const Packs = () => {
                                             <TableCell className={styles.tableText} align={'center'}>
                                                 <div className={styles.iconBlock}>
 
-                                                    <IconButton aria-label="school" size="small">
+                                                    <IconButton disabled={p.cardsCount===0} onClick={()=>goToLearnHandler(p._id, p.name)} aria-label="school" size="small">
 
                                                         <SchoolIcon fontSize="inherit"/>
                                                     </IconButton>
@@ -239,7 +245,7 @@ export const Packs = () => {
                                             </TableCell>
                                             : <TableCell className={styles.tableText} align={'left'}>
                                                 <div className={styles.iconBlock1}>
-                                                    <IconButton aria-label="school" size="small">
+                                                    <IconButton disabled={p.cardsCount===0} onClick={()=>goToLearnHandler(p._id, p.name)} aria-label="school" size="small">
                                                         <SchoolIcon fontSize="inherit"/>
                                                     </IconButton>
                                                 </div>
@@ -252,7 +258,7 @@ export const Packs = () => {
                     </TableContainer>
                     <div className={styles.paginatorBlock}>
                         <div className={styles.paginator}>
-                            <Paginator onPageChange={onPageChange}/>
+                            <Paginator onPageChange={onPageChange} pageCount={pageCount} totalCount={pageTotalCount}/>
                         </div>
                         <div className={styles.selector}>
                             Show

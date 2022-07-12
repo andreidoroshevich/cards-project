@@ -44,6 +44,7 @@ export type FetchDataType = {
     pageCount?: number
     user_id?: string
     name?: string
+    cardPacksTotalCount?: number
     sortPacks?: string | number
     min?: number
     max?: number

@@ -34,6 +34,7 @@ export const Cards = React.memo(() => {
     const page = useAppSelector(state => state.cards.page)
     const pageCount = useAppSelector(state => state.cards.pageCount)
     const cards = useAppSelector(state => state.cards.cards)
+    const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
 	const loginUserId = useAppSelector(state=>state.login.loginUserId)
 	const user_id = useAppSelector(state => state.profile.userId)
 
@@ -162,7 +163,7 @@ export const Cards = React.memo(() => {
 
                             {cards.map((card) => (
                                 <TableRow
-                                    key={card.cardsPack_id}
+                                    key={card._id}
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                 >
                                     <TableCell component="th" scope="row">{card.question}</TableCell>
@@ -200,7 +201,7 @@ export const Cards = React.memo(() => {
 
                 <div className={styles.paginatorBlock}>
                     <div className={styles.paginator}>
-                        <Paginator onPageChange={onPageChange}/>
+                        <Paginator onPageChange={onPageChange} pageCount={pageCount} totalCount={cardsTotalCount}/>
                     </div>
                     <div className={styles.selector}>
                         Show

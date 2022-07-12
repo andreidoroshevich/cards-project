@@ -29,9 +29,9 @@ const initialState = {
     ],
     page: 1,
     pageCount: 10,
-    cardPacksTotalCount: 5000,
+    cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: 110,
+    maxCardsCount: 100,
     token: "",
     tokenDeathTime: 0,
     min: 0,
@@ -53,6 +53,9 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, max: action.max}
         case 'packs/SAVE-USER-ID':
             return {...state, userId: action.userId}
+        case 'packs/SET-CARD-PACKS-TOTAL-COUNT':
+            return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
+
         default:
             return state
     }
@@ -65,6 +68,7 @@ export const getPacksTC = (data?: FetchDataType): AppThunk => async (dispatch) =
         dispatch(setPacksAC(res.cardPacks))
         dispatch(savePageCountAC(res.pageCount))
         dispatch(savePageAC(res.page))
+        dispatch(setCardPacksTotalCountAC(res.cardPacksTotalCount))
     } catch (error) {
         handleServerNetworkError(dispatch, (error as AxiosError).message)
     } finally {
@@ -111,6 +115,10 @@ export const updatePackTC = (data: UpdatePackRequestData, getData?: FetchDataTyp
 export const setPacksAC = (packs: PackType[]) => ({type: 'packs/SET-PACKS', packs} as const)
 export const savePageCountAC = (pageCount: number) => ({type: 'packs/SAVE-PAGE-COUNT', pageCount} as const)
 export const savePageAC = (page: number) => ({type: 'packs/SAVE-PAGE', page} as const)
+export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
+    type: 'packs/SET-CARD-PACKS-TOTAL-COUNT',
+    cardPacksTotalCount
+} as const)
 export const saveMinAC = (min: number) => ({type: 'packs/SAVE-MIN-SLIDER-VALUE', min} as const)
 export const saveMaxAC = (max: number) => ({type: 'packs/SAVE-MAX-SLIDER-VALUE', max} as const)
 export const saveUserIdAC = (userId: string) => ({type: 'packs/SAVE-USER-ID', userId} as const)
@@ -121,5 +129,6 @@ type ActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof saveMinAC>
     | ReturnType<typeof saveMaxAC>
     | ReturnType<typeof saveUserIdAC>
+    | ReturnType<typeof setCardPacksTotalCountAC>
 
 
