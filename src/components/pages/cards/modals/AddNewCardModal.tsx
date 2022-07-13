@@ -32,7 +32,6 @@ const AddNewCardModal = () => {
 		}
 	}
 
-
 	return (
 
 		<BasicModal operationButtonName={'ADD NEW CARD'}
