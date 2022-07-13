@@ -37,7 +37,7 @@ export const LearnPage = () => {
         cardsPack_id: '',
         created: '',
         grade: 0,
-        question: '...',
+        question: '',
         shots: 0,
         updated: '',
         user_id: '',
@@ -65,9 +65,7 @@ export const LearnPage = () => {
             setRating(0)
             setError(false)
             dispatch(setCardGrade(rating, card._id))
-            if (cards.length > 0) {
-                setCard(getCard(cards));
-            }
+            setCard(getCard(cards));
         }
     }
 

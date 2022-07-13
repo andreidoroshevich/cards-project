@@ -36,6 +36,7 @@ export default function HoverRating(props: RatingPropsType) {
                 <Rating
                     name="hover-feedback"
                     value={value}
+                    size={'large'}
                     precision={1}
                     getLabelText={getLabelText}
                     onChange={(event, newValue) => {
