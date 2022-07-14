@@ -69,9 +69,14 @@ export const Cards = React.memo(() => {
 	}
 
 	const [sortUpdate, setSortUpdate] = useState(false)//для сортировки по update
+	const [sortGrade, setSortGrade] = useState(false)//для сортировки по grade
+
+	//переключатель сортировки с update на grade
+	const [switchSort, setSwitchSort] = useState<'updated' | 'grade'>('updated')
 
 	const handleSortByUpdate = () => {
 		let sortUpdateStr
+		setSwitchSort('updated')
 		sortUpdate ? sortUpdateStr = '0updated' : sortUpdateStr = '1updated'
 		if (packid) {
 			dispatch(getCardsTC({
@@ -84,36 +89,62 @@ export const Cards = React.memo(() => {
 		setSortUpdate(!sortUpdate)
 	}
 
-	const onPageChange = (page: number) => {
+	const handleSortByGrade = () => {
+		let sortGradeStr
+		setSwitchSort('grade')
+		sortGrade ? sortGradeStr = '0grade' : sortGradeStr = '1grade'
 		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid,
+				sortCards: sortGradeStr,
 				page,
-				pageCount,
-				sortCards: `${Number(sortUpdate)}updated`,
+				pageCount
+			}))
+		}
+		setSortGrade(!sortGrade)
+	}
+
+	const onPageChange = (page: number) => {
+		if (packid && switchSort === 'updated') {
+			dispatch(getCardsTC({
+				cardsPack_id: packid, page, pageCount,
+				sortCards: `${Number(sortUpdate)}${switchSort}`,
+			}))
+		}
+		if (packid && switchSort === 'grade') {
+			dispatch(getCardsTC({
+				cardsPack_id: packid, page, pageCount,
+				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
 	}
 
 	const onChangePageCount = (pageCount: number) => {
-		if (packid) {
+		if (packid && switchSort === 'updated') {
 			dispatch(getCardsTC({
-				cardsPack_id: packid,
-				page,
-				pageCount,
-				sortCards: `${Number(sortUpdate)}updated`,
+				cardsPack_id: packid, page, pageCount,
+				sortCards: `${Number(sortUpdate)}${switchSort}`,
+			}))
+		}
+		if (packid && switchSort === 'grade') {
+			dispatch(getCardsTC({
+				cardsPack_id: packid, page, pageCount,
+				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
 	}
 
-	const onSearchPacks = (cardQuestion: string) => {
-		if (packid) {
+	const onSearchQuestionCards = (cardQuestion: string) => {
+		if (packid && switchSort === 'updated') {
 			dispatch(getCardsTC({
-				cardsPack_id: packid,
-				cardQuestion,
-				page,
-				pageCount,
-				sortCards: `${Number(sortUpdate)}updated`,
+				cardsPack_id: packid, cardQuestion, page, pageCount,
+				sortCards: `${Number(sortUpdate)}${switchSort}`,
+			}))
+		}
+		if (packid && switchSort === 'grade') {
+			dispatch(getCardsTC({
+				cardsPack_id: packid, cardQuestion, page, pageCount,
+				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
 	}
@@ -123,6 +154,8 @@ export const Cards = React.memo(() => {
 			dispatch(deleteCardTC(packid, cardId))
 		}
 	}
+
+
 	return (
 		<>
 			<Navbar/>
@@ -135,8 +168,8 @@ export const Cards = React.memo(() => {
 
 				<TableContainer className={style.tableContainer} elevation={3} component={Paper}>
 
-					<SearchAppBar onSearchPacks={onSearchPacks}
-					              children={<AddNewCardModal/>}
+					<SearchAppBar onSearchPacks={onSearchQuestionCards}
+								  children={<AddNewCardModal/>}
 					/>
 
 					<Table aria-label="simple table">
@@ -156,7 +189,17 @@ export const Cards = React.memo(() => {
 									</div>
 								</TableCell>
 
-								<TableCell sx={{'fontWeight': 'bold'}} align="right">Grade</TableCell>
+								<TableCell className={style.updated} sx={{'fontWeight': 'bold'}} align={'right'}>
+									<div className={styles.headerSortText}><b>Grade</b>
+										<div>
+											<IconButton onClick={handleSortByGrade} aria-label="arrow" size="small">
+												<UnfoldMoreIcon fontSize="inherit"/>
+											</IconButton>
+										</div>
+									</div>
+								</TableCell>
+
+								{/*<TableCell sx={{'fontWeight': 'bold'}} align="right">Grade</TableCell>*/}
 								<TableCell sx={{'fontWeight': 'bold'}} align="right">Actions</TableCell>
 							</TableRow>
 						</TableHead>
@@ -175,22 +218,22 @@ export const Cards = React.memo(() => {
 
 									<TableCell align="right">
 										<Rating name="read-only"
-										        precision={0.5}
-										        value={card.grade}
-										        size={"small"} readOnly/>
+												precision={0.5}
+												value={card.grade}
+												size={"small"} readOnly/>
 									</TableCell>
 
 									<TableCell align="right">
 										{(card.user_id === user_id)
 											? <div className={style.iconBlock}>
 
-													<DeleteCardModal handleOperation={() => deleteCardHandler(card._id)}
-													                 cardName={card.question}/>
+												<DeleteCardModal handleOperation={() => deleteCardHandler(card._id)}
+																 cardName={card.question}/>
 
-													<UpdateCardModal packid={packid!}
-													                 question={card.question}
-													                 answer={card.answer}
-													                 cardId={card._id}/>
+												<UpdateCardModal packid={packid!}
+																 question={card.question}
+																 answer={card.answer}
+																 cardId={card._id}/>
 											</div>
 											: null
 										}

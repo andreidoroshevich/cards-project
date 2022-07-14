@@ -40,7 +40,6 @@ export const RangeSlider = (props: SliderPropsType) => {
         dispatch(saveMinAC(value[0]))
         dispatch(saveMaxAC(value[1]))
         props.sliderHandler(value[0], value[1])
-
     }
 
     return (
