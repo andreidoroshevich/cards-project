@@ -14,12 +14,12 @@ type UpdatePackPropsType = {
     sortPacks: string
     min: number
     max: number
-    packName: string
+    name: string
 }
 
 export const UpdatePackModal = (props: UpdatePackPropsType) => {
 
-    const [newName, setNewName] = useState(props.packName)
+    const [newName, setNewName] = useState(props.name)
 
     const dispatch = useAppDispatch()
 

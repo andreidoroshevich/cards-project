@@ -63,7 +63,6 @@ export const Packs = () => {
 
     const allPacksHandler = () => {
         dispatch(getPacksTC({
-            user_id: '',
             page,
             pageCount,
             sortPacks,
@@ -76,53 +75,100 @@ export const Packs = () => {
 
     const onPageChange = (page: number) => {
         dispatch(savePageAC(page))
-        dispatch(getPacksTC({
-            user_id: userId,
-            page,
-            pageCount,
-            sortPacks,
-            min,
-            max
-        }))
+        if (userId) {
+            dispatch(getPacksTC({
+                user_id: userId,
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+
+        } else {
+            dispatch(getPacksTC({
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        }
     }
 
     const onChangePageCount = (pageCount: number) => {
-        dispatch(getPacksTC({
-            user_id: userId,
-            page,
-            pageCount,
-            sortPacks,
-            min,
-            max
-        }))
+        if (userId) {
+            dispatch(getPacksTC({
+                user_id: userId,
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        } else {
+            dispatch(getPacksTC({
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        }
     }
 
     const onSearchPacks = (packName: string) => {
-        dispatch(getPacksTC({
-            user_id: userId,
-            name: packName,
-            page,
-            pageCount,
-            sortPacks,
-            min,
-            max
-        }))
+        if (userId) {
+            dispatch(getPacksTC({
+                user_id: userId,
+                packName,
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        } else {
+            dispatch(getPacksTC({
+                packName,
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        }
     }
 
     const onSortPacks = () => {
-        dispatch(getPacksTC({user_id: userId, sortPacks, page, pageCount}))
+        if (userId) {
+            dispatch(getPacksTC({user_id: userId, sortPacks, page, pageCount}))
+        } else {
+            dispatch(getPacksTC({sortPacks, page, pageCount}))
+        }
         setSortDirection(!sortDirection)
     }
 
     const sliderHandler = (min: number, max: number) => {
-        dispatch(getPacksTC({
-            user_id: userId,
-            page,
-            pageCount,
-            sortPacks,
-            min,
-            max
-        }))
+        if (userId) {
+            dispatch(getPacksTC({
+                user_id: userId,
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        } else {
+            dispatch(getPacksTC({
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        }
+
     }
 
 
@@ -134,14 +180,26 @@ export const Packs = () => {
         navigate(`/learn-page/${packId}/${packName}`)
     }
 
-    const deletePackHandler = (packId: string) => dispatch(deletePackTC(packId, {
-        user_id: userId,
-        page,
-        pageCount,
-        sortPacks,
-        min,
-        max
-    }))
+    const deletePackHandler = (packId: string) => {
+        if (userId){
+            dispatch(deletePackTC(packId, {
+                user_id: userId,
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        } else {
+            dispatch(deletePackTC(packId, {
+                page,
+                pageCount,
+                sortPacks,
+                min,
+                max
+            }))
+        }
+    }
 
     return (
         <>
@@ -222,7 +280,9 @@ export const Packs = () => {
                                             <TableCell className={styles.tableText} align={'center'}>
                                                 <div className={styles.iconBlock}>
 
-                                                    <IconButton disabled={p.cardsCount===0} onClick={()=>goToLearnHandler(p._id, p.name)} aria-label="school" size="small">
+                                                    <IconButton disabled={p.cardsCount === 0}
+                                                                onClick={() => goToLearnHandler(p._id, p.name)}
+                                                                aria-label="school" size="small">
 
                                                         <SchoolIcon fontSize="inherit"/>
                                                     </IconButton>
@@ -238,14 +298,16 @@ export const Packs = () => {
                                                         sortPacks={sortPacks}
                                                         min={min}
                                                         max={max}
-                                                        packName={p.name}
+                                                        name={p.name}
                                                     />
 
                                                 </div>
                                             </TableCell>
                                             : <TableCell className={styles.tableText} align={'left'}>
                                                 <div className={styles.iconBlock1}>
-                                                    <IconButton disabled={p.cardsCount===0} onClick={()=>goToLearnHandler(p._id, p.name)} aria-label="school" size="small">
+                                                    <IconButton disabled={p.cardsCount === 0}
+                                                                onClick={() => goToLearnHandler(p._id, p.name)}
+                                                                aria-label="school" size="small">
                                                         <SchoolIcon fontSize="inherit"/>
                                                     </IconButton>
                                                 </div>

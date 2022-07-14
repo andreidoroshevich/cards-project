@@ -33,7 +33,7 @@ const ProfilePage = () => {
                                     <EditableSpan
                                         title={profile.name}
                                         onChange={(newValue) => {
-                                            const newData: changeNameType = {avatar: profile.avatar, newName: newValue}
+                                            const newData: changeNameType = {avatar: profile.avatar, name: newValue}
                                             dispatch(updateUserNameTC(newData))
                                         }}/>
                                 </div>

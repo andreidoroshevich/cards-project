@@ -43,11 +43,12 @@ export type FetchDataType = {
     page?: number
     pageCount?: number
     user_id?: string
-    name?: string
+    packName?: string
     cardPacksTotalCount?: number
     sortPacks?: string | number
     min?: number
     max?: number
+    name?: string
 }
 
 export const packsAPI = {
@@ -82,4 +83,3 @@ export const packsAPI = {
             }})
     }
 };
-

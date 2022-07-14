@@ -24,6 +24,7 @@ export const AddNewPackModal = () => {
     const createPackHandler = () => {
         dispatch(createPackTC({name, private: privatePack}))
         setName('')
+        setPrivatePack(false)
     }
 
 

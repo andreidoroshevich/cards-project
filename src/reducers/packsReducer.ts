@@ -31,12 +31,13 @@ const initialState = {
     pageCount: 10,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: 100,
+    maxCardsCount: 110,
     token: "",
     tokenDeathTime: 0,
     min: 0,
     max: 110,
     userId: '',
+    packName: '',
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -55,7 +56,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, userId: action.userId}
         case 'packs/SET-CARD-PACKS-TOTAL-COUNT':
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
-
+        case 'packs/SAVE-MAX-CARDS-COUNT':
+            return {...state, maxCardsCount: action.maxCardsCount}
         default:
             return state
     }
@@ -69,6 +71,7 @@ export const getPacksTC = (data?: FetchDataType): AppThunk => async (dispatch) =
         dispatch(savePageCountAC(res.pageCount))
         dispatch(savePageAC(res.page))
         dispatch(setCardPacksTotalCountAC(res.cardPacksTotalCount))
+        dispatch(saveMaxCardsCountAC(res.maxCardsCount))
     } catch (error) {
         handleServerNetworkError(dispatch, (error as AxiosError).message)
     } finally {
@@ -121,6 +124,7 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
 } as const)
 export const saveMinAC = (min: number) => ({type: 'packs/SAVE-MIN-SLIDER-VALUE', min} as const)
 export const saveMaxAC = (max: number) => ({type: 'packs/SAVE-MAX-SLIDER-VALUE', max} as const)
+export const saveMaxCardsCountAC = (maxCardsCount: number) => ({type: 'packs/SAVE-MAX-CARDS-COUNT', maxCardsCount} as const)
 export const saveUserIdAC = (userId: string) => ({type: 'packs/SAVE-USER-ID', userId} as const)
 
 type ActionType = ReturnType<typeof setPacksAC>
@@ -130,5 +134,6 @@ type ActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof saveMaxAC>
     | ReturnType<typeof saveUserIdAC>
     | ReturnType<typeof setCardPacksTotalCountAC>
+    | ReturnType<typeof saveMaxCardsCountAC>
 
 

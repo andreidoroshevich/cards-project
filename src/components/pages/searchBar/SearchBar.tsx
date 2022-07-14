@@ -16,15 +16,20 @@ type SearchType = {
 export const SearchAppBar = (props: SearchType) => {
 
 	const [value, setValue] = useState<string>('')
+	const [firstRender, setFirstRender]=useState(true)
 	const debouncedValue = useDebounce<string>(value, 1000)
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.currentTarget.value)
 	}
 
+	useEffect(()=>{
+		setFirstRender(false)
+	},[])
+
 	useEffect(() => {
-		if(debouncedValue) {
-			props.onSearchPacks(debouncedValue)
+		if(!firstRender) {
+			props.onSearchPacks(value)
 		}
 	}, [debouncedValue])
 
