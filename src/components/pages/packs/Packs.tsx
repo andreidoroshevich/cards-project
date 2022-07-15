@@ -149,7 +149,7 @@ export const Packs = () => {
             dispatch(getPacksTC({user_id: userId, sortPacks, page, pageCount, packName: searchPackName,
             }))
         } else {
-            dispatch(getPacksTC({sortPacks, page, pageCount}))
+            dispatch(getPacksTC({sortPacks, page, pageCount, packName: searchPackName}))
         }
         setSortDirection(!sortDirection)
     }
