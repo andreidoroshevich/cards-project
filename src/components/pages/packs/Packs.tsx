@@ -178,7 +178,6 @@ export const Packs = () => {
 
     }
 
-
     const goToCardHandler = (packId: string, packName: string) => {
         navigate(`/cards-page/${packId}/${packName}`)
     }
