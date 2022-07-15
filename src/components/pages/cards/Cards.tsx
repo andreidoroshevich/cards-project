@@ -14,7 +14,7 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "../../../reducers/cardsReduser";
+import {addCardTC, deleteCardTC, getCardsTC, setSearchQuestionAC, updateCardTC} from "../../../reducers/cardsReduser";
 import Navbar from "../../navbar/Navbar";
 import styles from "../packs/Packs.module.css";
 import {Paginator} from "../../common/pages/pagination/Paginator";
@@ -26,6 +26,7 @@ import {UpdateCardModal} from './modals/UpdateCardModal'
 
 
 export const Cards = React.memo(() => {
+
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
@@ -36,6 +37,7 @@ export const Cards = React.memo(() => {
 	const cards = useAppSelector(state => state.cards.cards)
 	const user_id = useAppSelector(state => state.profile.userId)
 	const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
+	const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
 
 	useEffect(() => {
 		if (packid) {
@@ -47,29 +49,10 @@ export const Cards = React.memo(() => {
 		navigate('/packs-page')
 	}
 
-	const handlerAddBtn = () => {
-		if (packid) {
-			dispatch(addCardTC({cardsPack_id: packid}))
-		}
-	}
-
-	const handlerDeleteCard = (cardId: string) => {
-		if (packid) {
-			dispatch(deleteCardTC(packid, cardId))
-		}
-	}
-
-	const handlerUpdateCard = (cardId: string) => {
-		if (packid) {
-			dispatch(updateCardTC({_id: cardId, question: 'update name card', answer: 'lalala'}, packid))
-		}
-	}
-
-	const [sortUpdate, setSortUpdate] = useState(false)//для сортировки по update
-	const [sortGrade, setSortGrade] = useState(false)//для сортировки по grade
-
 	//переключатель сортировки с update на grade
 	const [switchSort, setSwitchSort] = useState<'updated' | 'grade'>('updated')
+	const [sortUpdate, setSortUpdate] = useState(false)//для сортировки по update
+	const [sortGrade, setSortGrade] = useState(false)//для сортировки по grade
 
 	const handleSortByUpdate = () => {
 		let sortUpdateStr
@@ -80,7 +63,8 @@ export const Cards = React.memo(() => {
 				cardsPack_id: packid,
 				sortCards: sortUpdateStr,
 				page,
-				pageCount
+				pageCount,
+				cardQuestion: searchQuestion,
 			}))
 		}
 		setSortUpdate(!sortUpdate)
@@ -95,7 +79,8 @@ export const Cards = React.memo(() => {
 				cardsPack_id: packid,
 				sortCards: sortGradeStr,
 				page,
-				pageCount
+				pageCount,
+				cardQuestion: searchQuestion,
 			}))
 		}
 		setSortGrade(!sortGrade)
@@ -104,13 +89,13 @@ export const Cards = React.memo(() => {
 	const onPageChange = (page: number) => {
 		if (packid && switchSort === 'updated') {
 			dispatch(getCardsTC({
-				cardsPack_id: packid, page, pageCount,
+				cardsPack_id: packid, page, pageCount, cardQuestion: searchQuestion,
 				sortCards: `${Number(sortUpdate)}${switchSort}`,
 			}))
 		}
 		if (packid && switchSort === 'grade') {
 			dispatch(getCardsTC({
-				cardsPack_id: packid, page, pageCount,
+				cardsPack_id: packid, page, pageCount,cardQuestion: searchQuestion,
 				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
@@ -119,13 +104,13 @@ export const Cards = React.memo(() => {
 	const onChangePageCount = (pageCount: number) => {
 		if (packid && switchSort === 'updated') {
 			dispatch(getCardsTC({
-				cardsPack_id: packid, page, pageCount,
+				cardsPack_id: packid, page, pageCount,cardQuestion: searchQuestion,
 				sortCards: `${Number(sortUpdate)}${switchSort}`,
 			}))
 		}
 		if (packid && switchSort === 'grade') {
 			dispatch(getCardsTC({
-				cardsPack_id: packid, page, pageCount,
+				cardsPack_id: packid, page, pageCount,cardQuestion: searchQuestion,
 				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
@@ -152,6 +137,11 @@ export const Cards = React.memo(() => {
 		}
 	}
 
+	//для корректной работы поиска(сначала используем поиск, потом можно пользоваться сортировкой и ничего не слетает)
+	const searchQestionValue = (value:string) => {
+		dispatch(setSearchQuestionAC(value))
+	}
+
 
 	return (
 		<>
@@ -165,7 +155,7 @@ export const Cards = React.memo(() => {
 
 				<TableContainer className={style.tableContainer} elevation={3} component={Paper}>
 
-					<SearchAppBar onSearchPacks={onSearchQuestionCards}
+					<SearchAppBar onSearchPacks={onSearchQuestionCards} searchCallback={searchQestionValue}
 								  children={<AddNewCardModal/>}
 					/>
 
@@ -196,7 +186,6 @@ export const Cards = React.memo(() => {
 									</div>
 								</TableCell>
 
-								{/*<TableCell sx={{'fontWeight': 'bold'}} align="right">Grade</TableCell>*/}
 								<TableCell sx={{'fontWeight': 'bold'}} align="right">Actions</TableCell>
 							</TableRow>
 						</TableHead>

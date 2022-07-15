@@ -10,6 +10,7 @@ import {SearchIcon} from '../../common/pages/searchBar/searchBarComponents/Searc
 
 type SearchType = {
 	onSearchPacks: (packName: string) => void
+	searchCallback: (value: string)=>void
 	children: React.ReactNode
 }
 
@@ -30,6 +31,7 @@ export const SearchAppBar = (props: SearchType) => {
 	useEffect(() => {
 		if(!firstRender) {
 			props.onSearchPacks(value)
+			props.searchCallback(value)
 		}
 	}, [debouncedValue])
 

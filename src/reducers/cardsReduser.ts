@@ -5,8 +5,8 @@ import {setAppStatusAC} from "./profileReducer";
 type ActionType = ReturnType<typeof getCardsAC> |
     ReturnType<typeof pageCardsAC> |
     ReturnType<typeof pageCountCardsAC> |
-    ReturnType<typeof setCardRatingAC> |
-    ReturnType<typeof totalCountCardsAC>
+    ReturnType<typeof totalCountCardsAC>|
+	ReturnType<typeof setSearchQuestionAC>
 
 type InitStateType = typeof initState
 
@@ -18,6 +18,7 @@ const initState = {
     page: 1,
     pageCount: 10,
     packUserId: '',
+	searchQuestion: '',
 }
 
 type UpdatedGradeCard = {
@@ -39,7 +40,9 @@ export const cardsReducer = (state: InitStateType = initState, action: ActionTyp
             return {...state, pageCount: action.pageCount}
         case "CARDS/GET_TOTAL_COUNT":
             return {...state, cardsTotalCount: action.cardsTotalCount}
-        default:
+	    case "CARDS/SET_SEARCH_QUESTION":
+		    return {...state, searchQuestion: action.searchQuestion}
+	    default:
             return state
     }
 }
@@ -61,13 +64,8 @@ export const totalCountCardsAC = (cardsTotalCount: number) => {
     return {type: 'CARDS/GET_TOTAL_COUNT', cardsTotalCount} as const
 }
 
-export const setCardRatingAC = (updatedData: UpdatedGradeCard) => {
-    return {
-        type: 'CARDS/SET_CARD_RATING',
-        updatedData,
-    } as const
-}
-
+export const setSearchQuestionAC = (searchQuestion: string) => {
+	return {type: 'CARDS/SET_SEARCH_QUESTION', searchQuestion} as const}
 
 //thunk creaters
 export const getCardsTC = (data: CardsGetType): AppThunk => async (dispatch) => {
@@ -80,7 +78,7 @@ export const getCardsTC = (data: CardsGetType): AppThunk => async (dispatch) => 
         dispatch(totalCountCardsAC(res.data.cardsTotalCount))
 
     } catch (error) {
-        alert(error)
+	    console.log(error)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
@@ -90,9 +88,9 @@ export const addCardTC = (data: PostRequestType): AppThunk => async (dispatch) =
     dispatch(setAppStatusAC('loading'))
     try {
         await cardsAPI.createCard(data)
-        dispatch(getCardsTC({cardsPack_id: data.cardsPack_id}))
+        dispatch(getCardsTC({cardsPack_id: data.cardsPack_id, }))
     } catch (error) {
-        alert(error)
+	    console.log(error)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
@@ -104,7 +102,7 @@ export const deleteCardTC = (packId: string, cardId: string): AppThunk => async 
         await cardsAPI.deleteCard(cardId)
         dispatch(getCardsTC({cardsPack_id: packId}))
     } catch (error) {
-        alert(error)
+	    console.log(error)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
@@ -116,7 +114,7 @@ export const updateCardTC = (data: UpdateCardType, packId: string): AppThunk => 
         await cardsAPI.updateCard(data)
         dispatch(getCardsTC({cardsPack_id: packId}))
     } catch (error) {
-        alert(error)
+	    console.log(error)
     } finally {
         dispatch(setAppStatusAC('idle'))
     }
@@ -127,7 +125,6 @@ export const setCardGrade = (grade: number, _id: string): AppThunk => async disp
     try {
         const res = await cardsAPI.setCardGrade(grade, _id)
         const updatedData = res.data.updatedGrade
-        dispatch(setCardRatingAC(updatedData))
     } catch (err) {
         console.log(err)
     } finally {
