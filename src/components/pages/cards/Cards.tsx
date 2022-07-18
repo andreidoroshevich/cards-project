@@ -14,7 +14,7 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {addCardTC, deleteCardTC, getCardsTC, setSearchQuestionAC, updateCardTC} from "../../../reducers/cardsReduser";
+import {deleteCardTC, getCardsTC, setSearchQuestionAC, switchSortAC} from "../../../reducers/cardsReduser";
 import Navbar from "../../navbar/Navbar";
 import styles from "../packs/Packs.module.css";
 import {Paginator} from "../../common/pages/pagination/Paginator";
@@ -38,6 +38,7 @@ export const Cards = React.memo(() => {
 	const user_id = useAppSelector(state => state.profile.userId)
 	const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
 	const searchQuestion = useAppSelector(state => state.cards.searchQuestion)
+	const switchSort = useAppSelector(state => state.cards.switchSort)
 
 	useEffect(() => {
 		if (packid) {
@@ -49,14 +50,12 @@ export const Cards = React.memo(() => {
 		navigate('/packs-page')
 	}
 
-	//переключатель сортировки с update на grade
-	const [switchSort, setSwitchSort] = useState<'updated' | 'grade'>('updated')
 	const [sortUpdate, setSortUpdate] = useState(false)//для сортировки по update
 	const [sortGrade, setSortGrade] = useState(false)//для сортировки по grade
 
 	const handleSortByUpdate = () => {
 		let sortUpdateStr
-		setSwitchSort('updated')
+		dispatch(switchSortAC('updated'))
 		sortUpdate ? sortUpdateStr = '0updated' : sortUpdateStr = '1updated'
 		if (packid) {
 			dispatch(getCardsTC({
@@ -72,7 +71,7 @@ export const Cards = React.memo(() => {
 
 	const handleSortByGrade = () => {
 		let sortGradeStr
-		setSwitchSort('grade')
+		dispatch(switchSortAC('grade'))
 		sortGrade ? sortGradeStr = '0grade' : sortGradeStr = '1grade'
 		if (packid) {
 			dispatch(getCardsTC({
@@ -87,46 +86,28 @@ export const Cards = React.memo(() => {
 	}
 
 	const onPageChange = (page: number) => {
-		if (packid && switchSort === 'updated') {
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid, page, pageCount, cardQuestion: searchQuestion,
 				sortCards: `${Number(sortUpdate)}${switchSort}`,
 			}))
 		}
-		if (packid && switchSort === 'grade') {
-			dispatch(getCardsTC({
-				cardsPack_id: packid, page, pageCount,cardQuestion: searchQuestion,
-				sortCards: `${Number(sortGrade)}${switchSort}`,
-			}))
-		}
 	}
 
 	const onChangePageCount = (pageCount: number) => {
-		if (packid && switchSort === 'updated') {
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid, page, pageCount,cardQuestion: searchQuestion,
 				sortCards: `${Number(sortUpdate)}${switchSort}`,
-			}))
-		}
-		if (packid && switchSort === 'grade') {
-			dispatch(getCardsTC({
-				cardsPack_id: packid, page, pageCount,cardQuestion: searchQuestion,
-				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
 	}
 
 	const onSearchQuestionCards = (cardQuestion: string) => {
-		if (packid && switchSort === 'updated') {
+		if (packid) {
 			dispatch(getCardsTC({
 				cardsPack_id: packid, cardQuestion, page, pageCount,
 				sortCards: `${Number(sortUpdate)}${switchSort}`,
-			}))
-		}
-		if (packid && switchSort === 'grade') {
-			dispatch(getCardsTC({
-				cardsPack_id: packid, cardQuestion, page, pageCount,
-				sortCards: `${Number(sortGrade)}${switchSort}`,
 			}))
 		}
 	}
@@ -155,7 +136,8 @@ export const Cards = React.memo(() => {
 
 				<TableContainer className={style.tableContainer} elevation={3} component={Paper}>
 
-					<SearchAppBar onSearchPacks={onSearchQuestionCards} searchCallback={searchQestionValue}
+					<SearchAppBar onSearchPacks={onSearchQuestionCards}
+					              searchCallback={searchQestionValue}
 								  children={<AddNewCardModal/>}
 					/>
 
