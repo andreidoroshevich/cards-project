@@ -4,7 +4,7 @@ import {UploadPhotoType} from "../../../pages/profile/ProfilePage";
 type InputPropsType = {
     children: React.ReactNode
     updatePhotoHandler: (data: UploadPhotoType)=>void
-    keyAvatar: string
+    keyPhotoField: string
 }
 
 export const InputTypeFile = React.memo((props:InputPropsType) => {
@@ -14,7 +14,7 @@ export const InputTypeFile = React.memo((props:InputPropsType) => {
             const file = e.target.files[0]
             if (file.size < 4000000) {
                 convertFileToBase64(file, (file64: string) => {
-                    props.updatePhotoHandler({[props.keyAvatar]: file64})
+                    props.updatePhotoHandler({[props.keyPhotoField]: file64})
                 })
             } else {
                 alert('Файл слишком большого размера')
