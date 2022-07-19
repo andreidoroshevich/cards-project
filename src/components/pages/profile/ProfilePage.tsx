@@ -10,7 +10,6 @@ import {InputTypeFile} from "../../common/pages/UploadFile/InputTypeFile";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import {IconButton} from "@mui/material";
 
-
 export type UploadPhotoType = {
     [key: string]: string
 }

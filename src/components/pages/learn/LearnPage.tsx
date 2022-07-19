@@ -80,7 +80,14 @@ export const LearnPage = () => {
                             <div className={styles.learnTitle}>Learn: {packname}</div>
                             <div>
                                 <div>
-                                    <div className={styles.text}><b>Question:</b> {card.question}</div>
+                                    <div className={styles.text}><b>Question:</b>
+
+                                        {(card.question.slice(0,11)==='data:image/') ?
+                                            <img src={card.question}/>
+                                            : <div>{card.question}</div>
+                                        }
+
+                                    </div>
                                     {!isChecked && (
                                         <div className={styles.buttonBlock}>
                                             <NavLink to={'/packs-page'}>
@@ -97,7 +104,11 @@ export const LearnPage = () => {
                                     )}
                                     {isChecked && (
                                         <>
-                                            <div><b>Answer:</b> {card.answer}</div>
+                                            <div><b>Answer:</b>
+
+                                                {card.answer}
+
+                                            </div>
 
                                             <h3>Rate yourself:</h3>
 
