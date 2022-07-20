@@ -83,7 +83,7 @@ export const LearnPage = () => {
                                     <div className={styles.text}><b>Question:</b>
 
                                         {(card.question.slice(0,11)==='data:image/') ?
-                                            <img className={styles.imgQuestion} src={card.question}/>
+                                           <div><img alt={'photoQuestion'} className={styles.imgQuestion} src={card.question}/></div>
                                             : <div>{card.question}</div>
                                         }
 
