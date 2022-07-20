@@ -83,7 +83,7 @@ export const LearnPage = () => {
                                     <div className={styles.text}><b>Question:</b>
 
                                         {(card.question.slice(0,11)==='data:image/') ?
-                                            <img src={card.question}/>
+                                            <img className={styles.imgQuestion} src={card.question}/>
                                             : <div>{card.question}</div>
                                         }
 
@@ -109,10 +109,13 @@ export const LearnPage = () => {
                                                 {card.answer}
 
                                             </div>
+                                            <div className={styles.rate}>
+                                                <h3>Rate yourself:</h3>
 
-                                            <h3>Rate yourself:</h3>
+                                                <HoverRating onSelectRating={onSelectRating}/>
+                                            </div>
 
-                                            <HoverRating onSelectRating={onSelectRating}/>
+
 
                                             <div className={styles.buttonBlock}>
                                                 <NavLink to={'/packs-page'}>
