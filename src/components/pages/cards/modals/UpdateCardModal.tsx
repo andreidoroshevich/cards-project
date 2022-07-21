@@ -128,6 +128,6 @@ export const UpdateCardModal: FC<UpdateCardModalType> = ({packid, question, answ
 
 			</div>
 		</BasicModal>
-	);
-};
+	)
+}
 

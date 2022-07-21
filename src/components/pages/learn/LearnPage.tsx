@@ -24,13 +24,16 @@ const getCard = (cards: CardType[]) => {
 export const LearnPage = () => {
 
     const {packid, packname} = useParams()
+
     const dispatch = useAppDispatch()
-    const status = useAppSelector(state => state.profile.status)
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
     const [rating, setRating] = useState<number>(0)
     const [error, setError] = useState<boolean>(false)
+
     const cards = useAppSelector(state => state.cards.cards)
+    const status = useAppSelector(state => state.profile.status)
+
 
     const [card, setCard] = useState<CardType>({
         answer: '',
@@ -91,12 +94,12 @@ export const LearnPage = () => {
                                     {!isChecked && (
                                         <div className={styles.buttonBlock}>
                                             <NavLink to={'/packs-page'}>
-                                                <Button variant={'contained'}
+                                                <Button disabled={status==='loading'} variant={'contained'}
                                                         color={'primary'}>
                                                     Cancel
                                                 </Button>
                                             </NavLink>
-                                            <Button onClick={() => setIsChecked(true)} variant={'contained'}
+                                            <Button disabled={status==='loading'} onClick={() => setIsChecked(true)} variant={'contained'}
                                                     color={'primary'}>
                                                 Show answer
                                             </Button>

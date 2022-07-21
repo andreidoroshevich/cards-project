@@ -43,7 +43,6 @@ export const Packs = () => {
     const searchPackName = useAppSelector(state => state.packs.searchPackName)
     const status = useAppSelector(state => state.profile.status)
 
-
     const sortPacks = `${Number(sortDirection)}updated`
 
     useEffect(() => {
@@ -282,6 +281,7 @@ export const Packs = () => {
                             <TableBody>
                                 {packs.map((p) => (
                                     <TableRow
+                                        className={styles.tableRow}
                                         key={p._id}
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}>
                                         <TableCell onClick={() => goToCardHandler(p._id, p.name)}
