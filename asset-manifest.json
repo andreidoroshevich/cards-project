@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/react-cards-project/static/css/main.73458ff8.css",
-    "main.js": "/react-cards-project/static/js/main.b1b6615f.js",
-    "static/js/787.d2ce132a.chunk.js": "/react-cards-project/static/js/787.d2ce132a.chunk.js",
-    "static/media/email.png": "/react-cards-project/static/media/email.afa651a90799a9252ad0.png",
-    "static/media/avatar.jpg": "/react-cards-project/static/media/avatar.7de80f00a116f49d4d46.jpg",
-    "index.html": "/react-cards-project/index.html",
-    "main.73458ff8.css.map": "/react-cards-project/static/css/main.73458ff8.css.map",
-    "main.b1b6615f.js.map": "/react-cards-project/static/js/main.b1b6615f.js.map",
-    "787.d2ce132a.chunk.js.map": "/react-cards-project/static/js/787.d2ce132a.chunk.js.map"
+    "main.css": "/cards-project/static/css/main.6650ea93.css",
+    "main.js": "/cards-project/static/js/main.68960a35.js",
+    "static/js/787.d2ce132a.chunk.js": "/cards-project/static/js/787.d2ce132a.chunk.js",
+    "static/media/email.png": "/cards-project/static/media/email.afa651a90799a9252ad0.png",
+    "static/media/avatar.jpg": "/cards-project/static/media/avatar.7de80f00a116f49d4d46.jpg",
+    "index.html": "/cards-project/index.html",
+    "main.6650ea93.css.map": "/cards-project/static/css/main.6650ea93.css.map",
+    "main.68960a35.js.map": "/cards-project/static/js/main.68960a35.js.map",
+    "787.d2ce132a.chunk.js.map": "/cards-project/static/js/787.d2ce132a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.73458ff8.css",
-    "static/js/main.b1b6615f.js"
+    "static/css/main.6650ea93.css",
+    "static/js/main.68960a35.js"
   ]
 }
